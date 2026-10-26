@@ -45,7 +45,7 @@ body {
     box-sizing: border-box;
     transition: all 0.4s;
     margin: 5px;
-    box-shadow: inset 0 -8px 5px -6px white;
+    /*box-shadow: inset 0 -8px 5px -6px white;*/
 }
 
 .nav-button:hover {
@@ -77,6 +77,21 @@ body {
 }
 
 .clicker {
+    display: none;
+    background-color: black;
+    color: white;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+}
+
+.clicker p {
+    filter: drop-shadow(0px 0px 5px white);
+}
+
+.containerui {
     display: flex;
     background-color: black;
     color: white;
@@ -88,9 +103,48 @@ body {
     z-index: 0;
     align-items: center;
     justify-content: center;
-    font-size: xx-large;
 }
 
-.clicker p {
-    filter: drop-shadow(0px 0px 5px white);
+.upgradetab {
+    display: flex;
+    background-color: black;
+    color: white;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upgrade1 {
+    width: 10rem;
+    border: 1px solid white;
+    box-shadow: inset 0px 0px 10px white, 0px 0px 5px white;
+    height: 14rem;
+    margin: 10px;
+    transition: all 0.4s ease-in-out;
+}
+
+.upgrade1:hover {
+    width: 10.5rem;
+    height: 14.5rem;
+}
+
+.cardlist {
+    display: flex;
+    flex-direction: row;
+    height: 15rem;
+    width: calc(100% - 20px);
+    align-items: center;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+.cardlist::-webkit-scrollbar {
+    display: none;
+}
+
+.cardlist > * {
+    flex-shrink: 0;
 }
