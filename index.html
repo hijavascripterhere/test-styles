@@ -22,46 +22,50 @@
         <div class="nav-button">
             <p>REGISTER</p>
         </div>
+        <div class="nav-button">
+            <p>CRATES (coming soon)</p>
+        </div>
     </div>
     <div class="infobar">
         <p>User: mikel</p>
-        <p style="font-size: smaller;">coins: 0</p>
+        <p style="font-size: smaller;" id="currentcoins">coins: 0</p>
+        <p style="font-size: smaller;">UT: 0</p>
     </div>
     <div class="containerui">
         <div class="clicker" id="button">
-            <p>1K</p>
+            <p id="coins">0</p>
         </div>
         <div class="upgradetab" id="UPGRADES">
-            <h1>List of UPGRADES </h1>
+            <h1 style="margin: 10px; border-bottom: 3px solid white; border-top: 3px solid white; margin: auto;">List of
+                UPGRADES</h1>
             <div class="cardlist">
                 <div class="upgrade1">
-                    <p>upgrade1</p>
+                    <div class="cardtitle">
+                        <p>Coins Per Click - 0</p>
+                        <div class="addimg" data-tooltip="purchase upgrade tokens with coins">
+                            <img src="./add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
+                                style="margin: 0; display: block;">
+                        </div>
+                    </div>
+                    <div class="upgrades">
+
+                    </div>
                 </div>
-                <div class="upgrade1">
-                    <p>upgrade1</p>
+            </div>
+            <div class="buttonline">
+                <div class="wipeupgrades" data-tooltip="delete all upgrades">
+                    <p>WIPE</p>
                 </div>
-                <div class="upgrade1">
-                    <p>upgrade1</p>
-                </div>
-                <div class="upgrade1">
-                    <p>upgrade1</p>
-                </div>
-                <div class="upgrade1">
-                    <p>upgrade1</p>
-                </div>
-                <div class="upgrade1">
-                    <p>upgrade1</p>
-                </div>
-                <div class="upgrade1">
-                    <p>upgrade1</p>
-                </div>
-                <div class="upgrade1">
-                    <p>upgrade1</p>
+                <div class="tokens" data-tooltip="used to unlock upgrades">
+                    <p>upgrade token</p>
                 </div>
             </div>
         </div>
     </div>
-    <script src="./index.js"></script>
+    <div id="tooltip"></div>
+    <script src="./game.js"></script>
+    <script src="./nav.js"></script>
+    <script src="./tooltip.js"></script>
 </body>
 
 </html>

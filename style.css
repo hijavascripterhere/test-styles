@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     user-select: none;
 }
 
@@ -11,6 +10,7 @@ body {
     height: 100vh;
     background-color: black;
     align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .infobar {
@@ -27,6 +27,8 @@ body {
     color: white;
     background-color: black;
     z-index: 2;
+    writing-mode:sideways-lr;
+    letter-spacing: 5px;
 }
 
 .infobar:hover {
@@ -46,6 +48,7 @@ body {
     transition: all 0.4s;
     margin: 5px;
     /*box-shadow: inset 0 -8px 5px -6px white;*/
+    letter-spacing: 5px;
 }
 
 .nav-button:hover {
@@ -54,6 +57,7 @@ body {
     width: calc-size(max-content, size + 20px);
     border-bottom: 0px solid white;
     height: calc(2rem + 2px);
+    letter-spacing: 0px;
 }
 
 .navbar {
@@ -64,7 +68,7 @@ body {
     width: calc(100vw - 8rem - 11px);
     border-bottom: 1px solid white;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 3rem;
     flex-direction: row;
     transition: all 0.4s;
@@ -77,9 +81,9 @@ body {
 }
 
 .clicker {
-    display: none;
+    display: flex;
     background-color: black;
-    color: white;
+    color: orange;
     width: 100%;
     height: 100%;
     align-items: center;
@@ -88,7 +92,7 @@ body {
 }
 
 .clicker p {
-    filter: drop-shadow(0px 0px 5px white);
+    filter: drop-shadow(0px 0px 5px yellow);
 }
 
 .containerui {
@@ -106,39 +110,45 @@ body {
 }
 
 .upgradetab {
-    display: flex;
+    display: none;
     background-color: black;
     color: white;
     width: 100%;
     height: 100%;
     flex-direction: column;
-    align-items: center;
 }
 
 .upgrade1 {
-    width: 10rem;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: 20rem;
+    /*
     border: 1px solid white;
     box-shadow: inset 0px 0px 10px white, 0px 0px 5px white;
-    height: 14rem;
+    */
+    height: 28rem;
     margin: 10px;
     transition: all 0.4s ease-in-out;
+    background-color: rgb(50,50,50);
 }
 
+/*
 .upgrade1:hover {
-    width: 10.5rem;
-    height: 14.5rem;
+    width: 21rem;
 }
+*/
 
 .cardlist {
     display: flex;
     flex-direction: row;
-    height: 15rem;
+    height: 29rem;
     width: calc(100% - 20px);
     align-items: center;
 
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: none;
+    margin: auto;
 }
 
 .cardlist::-webkit-scrollbar {
@@ -147,4 +157,83 @@ body {
 
 .cardlist > * {
     flex-shrink: 0;
+}
+
+.cardtitle {
+    display: flex;
+    width: calc(100% - 10);
+    height: min-content;
+    background-color: red;
+    font-size: x-large;
+    padding: 2px;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid rgb(200, 0, 0);
+    position: relative;
+    box-shadow: 0px 0px 10px red; 
+}
+
+.addimg {
+    position: absolute;
+    right: 10px;
+    width: min-content;
+    height: min-content;
+    padding: 0px;
+    transition: all 0.4s;
+}
+
+.addimg:hover {
+    background-color: rgb(200, 0, 0);
+}
+
+#tooltip {
+    position: fixed;
+    display: none;
+
+    background: #222;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.upgrades {
+    width: calc(100% - 2px);
+    background-color: black;   
+    border: 1px solid white;
+    box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;       
+}
+
+.wipeupgrades {
+    display: flex;
+    width: 6rem;
+    height: 2rem;
+    border: 1px solid white;
+    box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.tokens {
+    display: flex;
+    width: 8rem;
+    height: 2rem;
+    border: 1px solid white;
+    box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.buttonline {
+    display: flex;
+    width: 100%;
+    height: min-content;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 10px;
 }
