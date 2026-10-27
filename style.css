@@ -200,10 +200,30 @@ body {
 }
 
 .upgrades {
+    display: flex;
     width: calc(100% - 2px);
     background-color: black;   
     border: 1px solid white;
-    box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;       
+    box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;
+    font-size: x-large;
+    align-items: center;
+    flex-direction: column;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.upgrades::-webkit-scrollbar {
+    display: none;
+}
+
+.upgrades > * {
+    flex-shrink: 0;
+}
+
+.clickup {
+    margin: 10px;
 }
 
 .wipeupgrades {

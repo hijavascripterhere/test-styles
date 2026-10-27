@@ -16,6 +16,7 @@
         <div class="nav-button" id="navupgrades">
             <p>UPGRADES</p>
         </div>
+        <!--
         <div class="nav-button">
             <p>UPDATE LOG</p>
         </div>
@@ -25,11 +26,13 @@
         <div class="nav-button">
             <p>CRATES (coming soon)</p>
         </div>
+        -->
     </div>
     <div class="infobar">
         <p>User: mikel</p>
+        <p style="font-size: smaller;" id="coinsperclick">coins per click: 0</p>
         <p style="font-size: smaller;" id="currentcoins">coins: 0</p>
-        <p style="font-size: smaller;">UT: 0</p>
+        <p style="font-size: smaller;" id="tokens">UT: 0</p>
     </div>
     <div class="containerui">
         <div class="clicker" id="button">
@@ -41,14 +44,19 @@
             <div class="cardlist">
                 <div class="upgrade1">
                     <div class="cardtitle">
-                        <p>Coins Per Click - 0</p>
-                        <div class="addimg" data-tooltip="purchase upgrade tokens with coins">
+                        <p id="cpstok">clicker - 0</p>
+                        <div class="addimg" data-tooltip="purchase upgrade tokens with coins" id="cpsatok">
                             <img src="./add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
                                 style="margin: 0; display: block;">
                         </div>
                     </div>
                     <div class="upgrades">
-
+                        <div id="cpsup1" data-tooltip="+0.2 Coins per click req: 1 Clicker" class="clickup">
+                            <p>Coins per click</p>
+                        </div>
+                        <div id="cpsup2" data-tooltip="x1.3 Coins per click req: 4 Clicker" class="clickup">
+                            <p>Multiply Clicks</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,7 +64,7 @@
                 <div class="wipeupgrades" data-tooltip="delete all upgrades">
                     <p>WIPE</p>
                 </div>
-                <div class="tokens" data-tooltip="used to unlock upgrades">
+                <div class="tokens" data-tooltip="used to unlock upgrades" id="ptokens">
                     <p>upgrade token</p>
                 </div>
             </div>
