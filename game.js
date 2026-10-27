@@ -1,3 +1,7 @@
+document.addEventListener("contextmenu", function (e) {
+    e.preventDefault()
+})
+
 let stats = JSON.parse(
     localStorage.getItem("stats")
 ) || {
