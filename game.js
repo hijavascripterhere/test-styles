@@ -9,6 +9,7 @@ let stats = JSON.parse(
     coinsperclick: 0.1,
     tokens: 0,
     cpstok: 0,
+    tokensperclick: 0,
 };
 
 let upgrades = JSON.parse(
@@ -21,11 +22,21 @@ let upgrades = JSON.parse(
     cpsup2: {
         cost: 4,
         available: true,
+    },
+    cpsup3: {
+        cost: 10,
+        available: true,
+    },
+    cpsup4: {
+        cost: 20,
+        available: true,
     }
 }
 
 upgrades.cpsup1.element = document.getElementById("cpsup1");
 upgrades.cpsup2.element = document.getElementById("cpsup2");
+upgrades.cpsup3.element = document.getElementById("cpsup3");
+upgrades.cpsup4.element = document.getElementById("cpsup4");
 
 const button = document.getElementById("button")
 var coins = document.getElementById("coins")
@@ -33,6 +44,7 @@ var currentcoins = document.getElementById("currentcoins")
 var coinsperclick = document.getElementById("coinsperclick")
 var tokens = document.getElementById("tokens")
 var cpstok = document.getElementById("cpstok")
+var tokenperclick = document.getElementById("tokenperclick")
 
 function abbreviate(num) {
     if (num >= 1e15) return (num / 1e15).toFixed(1) + "Q";
@@ -42,6 +54,10 @@ function abbreviate(num) {
     if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
 
     return num;
+}
+
+function roundn(num) {
+    return Math.round(num * 100) / 100;
 }
 
 function savegame() {
@@ -59,25 +75,21 @@ function updatetext() {
             upgrades[upgrade].element.style.color = "gray";
         }
     }
-
-    let number = stats.coins
-    let number1 = stats.coinsperclick
-    number1 = Math.round(number1 * 100) / 100
-    number = Math.round(number * 100) / 100
-    coins.innerText = abbreviate(number);
-    currentcoins.innerHTML = `coins: ${abbreviate(number)}`
-    coinsperclick.innerHTML = `coins per click: ${abbreviate(number1)}`
-    tokens.innerHTML = `UT: ${abbreviate(stats.tokens)}`
-    cpstok.innerHTML = `Clicker: ${abbreviate(stats.cpstok)}`
+    coins.innerText = `${abbreviate(roundn(stats.coins))}$`;
+    currentcoins.innerHTML = `coins: ${abbreviate(roundn(stats.coins))}$`
+    coinsperclick.innerHTML = `coins per click: ${abbreviate(roundn(stats.coinsperclick))}`
+    tokens.innerHTML = `UT: ${abbreviate(roundn(stats.tokens))}`
+    cpstok.innerHTML = `Clicker: ${abbreviate(roundn(stats.cpstok))}`
+    tokenperclick.innerHTML = `UT per click: ${abbreviate(roundn(stats.tokensperclick))}`
     savegame()
 }
-
 
 /* update text on start of website */
 updatetext()
 
 button.onclick = function () {
-    stats.coins += stats.coinsperclick;
+    stats.coins += stats.coinsperclick
+    stats.tokens += stats.tokensperclick
     updatetext();
 }
 
@@ -104,7 +116,7 @@ cpsatok.onclick = function () {
 
 cpsup1.onclick = function () {
     if (stats.cpstok >= 1 && upgrades["cpsup1"].available) {
-        stats.coinsperclick += 0.2
+        stats.coinsperclick += 0.3
         upgrades["cpsup1"].available = false
         updatetext()
     }
@@ -112,9 +124,24 @@ cpsup1.onclick = function () {
 
 cpsup2.onclick = function () {
     if (stats.cpstok >= 4 && upgrades["cpsup2"].available) {
-        stats.coinsperclick *= 1.3
+        stats.coinsperclick *= 1.5
         upgrades["cpsup2"].available = false
         updatetext()
     }
 }
 
+cpsup3.onclick = function () {
+    if (stats.cpstok >= 10 && upgrades["cpsup3"].available) {
+        stats.tokensperclick += 0.01
+        upgrades["cpsup3"].available = false
+        updatetext()
+    }
+}
+
+cpsup4.onclick = function () {
+    if (stats.cpstok >= 1 && upgrades["cpsup4"].available) {
+        stats.coinsperclick += 0.5
+        upgrades["cpsup4"].available = false
+        updatetext()
+    }
+}
