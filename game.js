@@ -2,6 +2,8 @@ document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
 
+localStorage.clear()
+
 let stats = JSON.parse(
     localStorage.getItem("stats")
 ) || {
@@ -10,6 +12,8 @@ let stats = JSON.parse(
     tokens: 0,
     cpstok: 0,
     tokensperclick: 0,
+    cpstokmax: 20,
+    UTcost: 15,
 };
 
 let upgrades = JSON.parse(
@@ -45,6 +49,8 @@ var coinsperclick = document.getElementById("coinsperclick")
 var tokens = document.getElementById("tokens")
 var cpstok = document.getElementById("cpstok")
 var tokenperclick = document.getElementById("tokenperclick")
+var ptokens = document.getElementById("ptokens")
+var cpsatok = document.getElementById("cpsatok")
 
 function abbreviate(num) {
     if (num >= 1e15) return (num / 1e15).toFixed(1) + "Q";
@@ -81,7 +87,14 @@ function updatetext() {
     tokens.innerHTML = `UT: ${abbreviate(roundn(stats.tokens))}`
     cpstok.innerHTML = `Clicker: ${abbreviate(roundn(stats.cpstok))}`
     tokenperclick.innerHTML = `UT per click: ${abbreviate(roundn(stats.tokensperclick))}`
+    ptokens.innerHTML = `UT cost: ${abbreviate(roundn(stats.UTcost))}$`
     savegame()
+}
+
+
+function priceinc(num) {
+    num = num * 1.1
+    return num
 }
 
 /* update text on start of website */
@@ -95,13 +108,14 @@ button.onclick = function () {
 
 
 /* ugrade functions */
-const ptokens = document.getElementById("ptokens")
-const cpsatok = document.getElementById("cpsatok")
 
 ptokens.onclick = function () {
-    if (stats.coins >= 15) {
-        stats.coins -= 15
+    if (stats.coins >= stats.UTcost) {
+        stats.coins -= stats.UTcost
         stats.tokens += 1
+        priceinc(stats.UTcost)
+
+        stats.UTcost = priceinc(stats.UTcost)
         updatetext()
     }
 }
@@ -132,7 +146,7 @@ cpsup2.onclick = function () {
 
 cpsup3.onclick = function () {
     if (stats.cpstok >= 10 && upgrades["cpsup3"].available) {
-        stats.tokensperclick += 0.01
+        stats.tokensperclick += 0.02
         upgrades["cpsup3"].available = false
         updatetext()
     }
