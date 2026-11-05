@@ -2,11 +2,13 @@ document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
 
+
+
 let stats = JSON.parse(
     localStorage.getItem("stats")
 ) || {
     coins: 0,
-    coinsperclick: 1,
+    coinsperclick: 100,
     tokens: 0,
     cpstok: 0,
     tokensperclick: 0,
@@ -15,6 +17,7 @@ let stats = JSON.parse(
     autoclickerunl: false,
     acps: 1,
     cbstok: 0,
+    autotokensperclick: 0,
 };
 
 let upgrades = JSON.parse(
@@ -39,23 +42,32 @@ let upgrades = JSON.parse(
     cbsup1: {
         cost: 10,
         available: true,
+    },
+    cbsup2: {
+        cost: 10,
+        available: true,
     }
 }
 
+/* clicker upgrades */
 upgrades.cpsup1.element = document.getElementById("cpsup1");
 upgrades.cpsup2.element = document.getElementById("cpsup2");
 upgrades.cpsup3.element = document.getElementById("cpsup3");
 upgrades.cpsup4.element = document.getElementById("cpsup4");
+
+/* autoclicker upgrades */
 upgrades.cbsup1.element = document.getElementById("cbsup1");
+upgrades.cbsup2.element = document.getElementById("cbsup2");
 
 const button = document.getElementById("button")
 var coins = document.getElementById("coins")
 var currentcoins = document.getElementById("currentcoins")
 var coinsperclick = document.getElementById("coinsperclick")
 var tokens = document.getElementById("tokens")
-var cpstok = document.getElementById("cpstok")
 var tokenperclick = document.getElementById("tokenperclick")
 var ptokens = document.getElementById("ptokens")
+
+var cpstok = document.getElementById("cpstok")
 var cpsatok = document.getElementById("cpsatok")
 
 var cbsatok = document.getElementById("cbsatok")
@@ -114,7 +126,7 @@ function click() {
 
 function aclick() {
     stats.coins += stats.acps
-    stats.tokens += stats.tokensperclick
+    stats.tokens += stats.autotokensperclick
 }
 
 /* update text on start of website */
@@ -196,7 +208,15 @@ cpsup4.onclick = function () {
 cbsup1.onclick = function () {
     if (stats.cbstok >= upgrades["cbsup1"].cost && upgrades["cbsup1"].available) {
         stats.autoclickerunl = true
-        location.reload()
+        upgrades["cbsup1"].available = false
+        updatetext()
+    }
+}
+
+cbsup2.onclick = function () {
+    if (stats.cbstok >= upgrades["cbsup2"].cost && upgrades["cbsup2"].available) {
+        stats.autotokensperclick += 0.01
+        upgrades["cbsup2"].available = false
         updatetext()
     }
 }
