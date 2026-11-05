@@ -6,12 +6,15 @@ let stats = JSON.parse(
     localStorage.getItem("stats")
 ) || {
     coins: 0,
-    coinsperclick: 0.1,
+    coinsperclick: 1,
     tokens: 0,
     cpstok: 0,
     tokensperclick: 0,
     cpstokmax: 20,
     UTcost: 15,
+    autoclickerunl: false,
+    acps: 1,
+    cbstok: 0,
 };
 
 let upgrades = JSON.parse(
@@ -32,6 +35,10 @@ let upgrades = JSON.parse(
     cpsup4: {
         cost: 20,
         available: true,
+    },
+    cbsup1: {
+        cost: 10,
+        available: true,
     }
 }
 
@@ -39,6 +46,7 @@ upgrades.cpsup1.element = document.getElementById("cpsup1");
 upgrades.cpsup2.element = document.getElementById("cpsup2");
 upgrades.cpsup3.element = document.getElementById("cpsup3");
 upgrades.cpsup4.element = document.getElementById("cpsup4");
+upgrades.cbsup1.element = document.getElementById("cbsup1");
 
 const button = document.getElementById("button")
 var coins = document.getElementById("coins")
@@ -49,6 +57,9 @@ var cpstok = document.getElementById("cpstok")
 var tokenperclick = document.getElementById("tokenperclick")
 var ptokens = document.getElementById("ptokens")
 var cpsatok = document.getElementById("cpsatok")
+
+var cbsatok = document.getElementById("cbsatok")
+var cbstok = document.getElementById("cbstok")
 
 function abbreviate(num) {
     if (num >= 1e15) return (num / 1e15).toFixed(1) + "Q";
@@ -75,7 +86,7 @@ function updatetext() {
     for (let upgrade in upgrades) {
         if (upgrades[upgrade].available) {
             upgrades[upgrade].element.style.color = "white";
-        } else {
+        } else if (!upgrades[upgrade].available) {
             upgrades[upgrade].element.style.color = "gray";
         }
     }
@@ -83,9 +94,10 @@ function updatetext() {
     currentcoins.innerHTML = `coins: ${abbreviate(roundn(stats.coins))}$`
     coinsperclick.innerHTML = `coins per click: ${abbreviate(roundn(stats.coinsperclick))}`
     tokens.innerHTML = `UT: ${abbreviate(roundn(stats.tokens))}`
-    cpstok.innerHTML = `Clicker: ${abbreviate(roundn(stats.cpstok))}`
+    cpstok.innerHTML = `Clicker - ${abbreviate(roundn(stats.cpstok))}`
     tokenperclick.innerHTML = `UT per click: ${abbreviate(roundn(stats.tokensperclick))}`
     ptokens.innerHTML = `UT cost: ${abbreviate(roundn(stats.UTcost))}$`
+    cbstok.innerHTML = `autoclicker - ${abbreviate(roundn(stats.cbstok))}`
     savegame()
 }
 
@@ -95,15 +107,30 @@ function priceinc(num) {
     return num
 }
 
+function click() {
+    stats.coins += stats.coinsperclick
+    stats.tokens += stats.tokensperclick
+}
+
+function aclick() {
+    stats.coins += stats.acps
+    stats.tokens += stats.tokensperclick
+}
+
 /* update text on start of website */
 updatetext()
 
 button.onclick = function () {
-    stats.coins += stats.coinsperclick
-    stats.tokens += stats.tokensperclick
+    click()
     updatetext();
 }
 
+setInterval(function () {
+    if (stats.autoclickerunl) {
+        aclick()
+        updatetext()
+    }
+}, 500)
 
 /* ugrade functions */
 
@@ -126,8 +153,16 @@ cpsatok.onclick = function () {
     }
 }
 
+cbsatok.onclick = function () {
+    if (stats.tokens >= 1) {
+        stats.tokens -= 1
+        stats.cbstok += 1
+        updatetext()
+    }
+}
+
 cpsup1.onclick = function () {
-    if (stats.cpstok >= 1 && upgrades["cpsup1"].available) {
+    if (stats.cpstok >= upgrades["cpsup1"].cost && upgrades["cpsup1"].available) {
         stats.coinsperclick += 0.3
         upgrades["cpsup1"].available = false
         updatetext()
@@ -135,7 +170,7 @@ cpsup1.onclick = function () {
 }
 
 cpsup2.onclick = function () {
-    if (stats.cpstok >= 4 && upgrades["cpsup2"].available) {
+    if (stats.cpstok >= upgrades["cpsup2"].cost && upgrades["cpsup2"].available) {
         stats.coinsperclick *= 1.5
         upgrades["cpsup2"].available = false
         updatetext()
@@ -143,7 +178,7 @@ cpsup2.onclick = function () {
 }
 
 cpsup3.onclick = function () {
-    if (stats.cpstok >= 10 && upgrades["cpsup3"].available) {
+    if (stats.cpstok >= upgrades["cpsup3"].cost && upgrades["cpsup3"].available) {
         stats.tokensperclick += 0.02
         upgrades["cpsup3"].available = false
         updatetext()
@@ -151,9 +186,17 @@ cpsup3.onclick = function () {
 }
 
 cpsup4.onclick = function () {
-    if (stats.cpstok >= 1 && upgrades["cpsup4"].available) {
+    if (stats.cpstok >= upgrades["cpsup4"].cost && upgrades["cpsup4"].available) {
         stats.coinsperclick += 0.5
         upgrades["cpsup4"].available = false
+        updatetext()
+    }
+}
+
+cbsup1.onclick = function () {
+    if (stats.cbstok >= upgrades["cbsup1"].cost && upgrades["cbsup1"].available) {
+        stats.autoclickerunl = true
+        location.reload()
         updatetext()
     }
 }
