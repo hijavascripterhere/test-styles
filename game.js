@@ -152,6 +152,7 @@ if (gameVersion !== CURRENT_VERSION) {
     localStorage.removeItem("upgrades");
 
     localStorage.setItem("gameVersion", CURRENT_VERSION);
+    updatetext()
 }
 
 /* ugrade functions */
