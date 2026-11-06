@@ -1,10 +1,27 @@
+import {
+    auth,
+    db,
+    register,
+    login,
+    logout,
+    onAuthStateChanged,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+} from "./firebase.js";
+
+const authContainer = document.getElementById("auth-container");
+const accountContainer = document.getElementById("account-container");
+
+const authMessage = document.getElementById("auth-message");
+const accountEmail = document.getElementById("account-email");
+
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
 
-let stats = JSON.parse(
-    localStorage.getItem("stats")
-) || {
+let stats = {
     coins: 0,
     coinsperclick: 0.5,
     tokens: 0,
@@ -18,9 +35,7 @@ let stats = JSON.parse(
     autotokensperclick: 0,
 };
 
-let upgrades = JSON.parse(
-    localStorage.getItem("upgrades")
-) || {
+let upgrades = {
     cpsup1: {
         cost: 1,
         available: true,
@@ -60,17 +75,8 @@ upgrades.cbsup2.element = document.getElementById("cbsup2");
 var versiontext = document.getElementById("versiontext")
 
 const CURRENT_VERSION = "1.0.8b";
-const gameVersion = localStorage.getItem("gameVersion");
 
-versiontext.innerHTML = `newest version: ${CURRENT_VERSION}<br> your current version: ${gameVersion}`
-
-if (gameVersion !== CURRENT_VERSION) {
-    localStorage.removeItem("stats");
-    localStorage.removeItem("upgrades");
-
-    localStorage.setItem("gameVersion", CURRENT_VERSION);
-    updatetext()
-}
+versiontext.innerHTML = `newest version: ${CURRENT_VERSION}`;
 
 const button = document.getElementById("button")
 var coins = document.getElementById("coins")
@@ -101,14 +107,90 @@ function roundn(num) {
     return Math.round(num * 100) / 100;
 }
 
+let currentUser = null;
+let gameReady = false;
+let saveDirty = false;
+
 function savegame() {
-    localStorage.setItem("stats", JSON.stringify(stats));
-    localStorage.setItem("upgrades", JSON.stringify(upgrades));
+    saveDirty = true;
+}
+
+async function uploadSave() {
+    if (!currentUser || !saveDirty || !gameReady) return;
+
+    saveDirty = false;
+
+    // Remove HTML elements from upgrades before saving
+    let cleanUpgrades = {};
+
+    for (let upgrade in upgrades) {
+        cleanUpgrades[upgrade] = {
+            cost: upgrades[upgrade].cost,
+            available: upgrades[upgrade].available
+        };
+    }
+
+    try {
+        await setDoc(doc(db, "players", currentUser.uid), {
+            stats: stats,
+            upgrades: cleanUpgrades,
+            lastSaved: serverTimestamp(),
+            schemaVersion: 1
+        });
+
+        console.log("Game saved to cloud!");
+    } catch (error) {
+        saveDirty = true;
+        console.error("Save failed:", error);
+    }
+}
+
+async function loadGame(user) {
+    try {
+        const saveRef = doc(db, "players", user.uid);
+        const save = await getDoc(saveRef);
+
+        if (save.exists()) {
+            const data = save.data();
+
+            stats = {
+                ...stats,
+                ...data.stats
+            };
+
+            for (let upgrade in upgrades) {
+                if (data.upgrades?.[upgrade]) {
+                    upgrades[upgrade].cost =
+                        data.upgrades[upgrade].cost;
+
+                    upgrades[upgrade].available =
+                        data.upgrades[upgrade].available;
+                }
+            }
+
+            console.log("Save loaded!");
+        } else {
+            console.log("New player! Creating save...");
+            saveDirty = true;
+        }
+
+        gameReady = true;
+        updatetext();
+
+        // Create the first save for a new player
+        await uploadSave();
+
+    } catch (error) {
+        gameReady = false;
+        console.error("Couldn't load save:", error);
+        authMessage.textContent = "Couldn't load your save. Please try again.";
+    }
 }
 
 
 /* update text function */
 function updatetext() {
+    if (!gameReady) return;
     for (let upgrade in upgrades) {
         if (upgrades[upgrade].available) {
             upgrades[upgrade].element.style.color = "white";
@@ -134,11 +216,13 @@ function priceinc(num) {
 }
 
 function click() {
+    if (!gameReady) return;
     stats.coins += stats.coinsperclick
     stats.tokens += stats.tokensperclick
 }
 
 function aclick() {
+    if (!gameReady) return;
     stats.coins += stats.acps  * ((stats.cbstok/100)+1)
     stats.tokens += stats.autotokensperclick
 }
@@ -163,15 +247,16 @@ setInterval(function () {
 }, 1000)
 
 setInterval(function () {
-    if (stats.autoclickerunl) {
-        aclick()
-        updatetext()
+    if (gameReady && stats.autoclickerunl) {
+        aclick();
+        updatetext();
     }
-}, 500)
+}, 500);
 
 /* ugrade functions */
 
 ptokens.onclick = function () {
+    if (!gameReady) return;
     if (stats.coins >= stats.UTcost) {
         stats.coins -= stats.UTcost
         stats.tokens += 1
@@ -183,6 +268,7 @@ ptokens.onclick = function () {
 }
 
 cpsatok.onclick = function () {
+    if (!gameReady) return;
     if (stats.tokens >= 1) {
         stats.tokens -= 1
         stats.cpstok += 1
@@ -191,6 +277,7 @@ cpsatok.onclick = function () {
 }
 
 cbsatok.onclick = function () {
+    if (!gameReady) return;
     if (stats.tokens >= 1) {
         stats.tokens -= 1
         stats.cbstok += 1
@@ -199,6 +286,7 @@ cbsatok.onclick = function () {
 }
 
 cpsup1.onclick = function () {
+    if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup1"].cost && upgrades["cpsup1"].available) {
         stats.coinsperclick += 0.3
         upgrades["cpsup1"].available = false
@@ -207,6 +295,7 @@ cpsup1.onclick = function () {
 }
 
 cpsup2.onclick = function () {
+    if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup2"].cost && upgrades["cpsup2"].available) {
         stats.coinsperclick *= 1.5
         upgrades["cpsup2"].available = false
@@ -215,6 +304,7 @@ cpsup2.onclick = function () {
 }
 
 cpsup3.onclick = function () {
+    if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup3"].cost && upgrades["cpsup3"].available) {
         stats.tokensperclick += 0.02
         upgrades["cpsup3"].available = false
@@ -223,6 +313,7 @@ cpsup3.onclick = function () {
 }
 
 cpsup4.onclick = function () {
+    if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup4"].cost && upgrades["cpsup4"].available) {
         stats.coinsperclick += 0.5
         upgrades["cpsup4"].available = false
@@ -231,6 +322,7 @@ cpsup4.onclick = function () {
 }
 
 cbsup1.onclick = function () {
+    if (!gameReady) return;
     if (stats.cbstok >= upgrades["cbsup1"].cost && upgrades["cbsup1"].available) {
         stats.autoclickerunl = true
         upgrades["cbsup1"].available = false
@@ -239,9 +331,67 @@ cbsup1.onclick = function () {
 }
 
 cbsup2.onclick = function () {
+    if (!gameReady) return;
     if (stats.cbstok >= upgrades["cbsup2"].cost && upgrades["cbsup2"].available) {
         stats.autotokensperclick += 0.01
         upgrades["cbsup2"].available = false
         updatetext()
     }
 }
+
+// Register
+document.getElementById("register-button").onclick = async function () {
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+
+    try {
+        await register(email, password);
+        authMessage.textContent = "Account created!";
+    } catch (error) {
+        authMessage.textContent = error.message;
+        console.error(error);
+    }
+};
+
+// Login
+document.getElementById("login-button").onclick = async function () {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+        await login(email, password);
+        authMessage.textContent = "Logged in!";
+    } catch (error) {
+        authMessage.textContent = error.message;
+        console.error(error);
+    }
+};
+
+// Logout
+document.getElementById("logout-button").onclick = async function () {
+    await uploadSave();
+    await logout();
+};
+
+onAuthStateChanged(auth, async function (user) {
+    currentUser = user;
+    gameReady = false;
+
+    if (user) {
+        authContainer.hidden = true;
+        accountContainer.hidden = false;
+
+        accountEmail.textContent = user.email;
+
+        await loadGame(user);
+    } else {
+        authContainer.hidden = false;
+        accountContainer.hidden = true;
+
+        console.log("Not logged in");
+    }
+});
+
+setInterval(function () {
+    uploadSave();
+}, 10000);
