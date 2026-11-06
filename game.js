@@ -18,7 +18,6 @@ let stats = JSON.parse(
     acps: 1,
     cbstok: 0,
     autotokensperclick: 0,
-    alreadyreset: false,
 };
 
 let upgrades = JSON.parse(
@@ -145,9 +144,15 @@ setInterval(function () {
     }
 }, 500)
 
-setInterval(function () {
-    localStorage.clear()
-}, 1000)
+const CURRENT_VERSION = "1.0.4b";
+const gameVersion = localStorage.getItem("gameVersion");
+
+if (gameVersion !== CURRENT_VERSION) {
+    localStorage.removeItem("stats");
+    localStorage.removeItem("upgrades");
+
+    localStorage.setItem("gameVersion", CURRENT_VERSION);
+}
 
 /* ugrade functions */
 

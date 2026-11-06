@@ -27,6 +27,7 @@ body {
     /*writing-mode: sideways-lr;*/
     letter-spacing: 5px;
     padding-top: 5px;
+    z-index: 11;
 }
 
 .infobar:hover {
@@ -67,6 +68,10 @@ body {
     flex-direction: row;
     transition: all 0.4s;
     background-color: black;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 .navbar:hover {
@@ -96,6 +101,8 @@ body {
     height: calc(100vh - 8rem);
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: calc(3rem + 1px);
 }
 
 .upgradetab {
