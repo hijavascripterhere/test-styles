@@ -25,7 +25,7 @@ import {
 
 // Your Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_EXISTING_API_KEY",
+    apiKey: "AIzaSyCGC8x0uwp58dvrE1hbf5WL8H7FDn2GqwI",
     authDomain: "ccgameo.firebaseapp.com",
     projectId: "ccgameo",
     storageBucket: "ccgameo.firebasestorage.app",
