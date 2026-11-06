@@ -347,6 +347,7 @@ document.getElementById("register-button").onclick = async function () {
     try {
         await register(email, password);
         authMessage.textContent = "Account created!";
+        location.reload()
     } catch (error) {
         authMessage.textContent = error.message;
         console.error(error);
@@ -361,7 +362,6 @@ document.getElementById("login-button").onclick = async function () {
     try {
         await login(email, password);
         authMessage.textContent = "Logged in!";
-        location.reload()
     } catch (error) {
         authMessage.textContent = error.message;
         console.error(error);
