@@ -57,8 +57,12 @@ upgrades.cpsup4.element = document.getElementById("cpsup4");
 upgrades.cbsup1.element = document.getElementById("cbsup1");
 upgrades.cbsup2.element = document.getElementById("cbsup2");
 
-const CURRENT_VERSION = "1.0.7b";
+var versiontext = document.getElementById("versiontext")
+
+const CURRENT_VERSION = "1.0.8b";
 const gameVersion = localStorage.getItem("gameVersion");
+
+versiontext.innerHTML = `newest version: ${CURRENT_VERSION}<br> your current version: ${gameVersion}`
 
 if (gameVersion !== CURRENT_VERSION) {
     localStorage.removeItem("stats");
@@ -135,7 +139,7 @@ function click() {
 }
 
 function aclick() {
-    stats.coins += stats.acps  * (stats.cbstok)/100
+    stats.coins += stats.acps  * ((stats.cbstok/100)+1)
     stats.tokens += stats.autotokensperclick
 }
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ccgameo</title>
     <link rel="stylesheet" href="./style.css">
-    <link rel="shortcut icon" href="./dollar.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/dollar.png" type="image/x-icon">
 </head>
 
 <body>
@@ -35,14 +35,6 @@
         </div>
         -->
     </div>
-    <div class="infobar">
-        <p>User: ?</p>
-        <p style="font-size: smaller;" id="coinsperclick">coins per click: 0</p>
-        <p style="font-size: smaller;" id="tokenperclick">UT per click: 0</p>
-        <p style="font-size: smaller;" id="currentcoins">coins: 0</p>
-        <p style="font-size: smaller;" id="tokens">UT: 0</p>
-        <p style="font-size: smaller;" id="cps">coins per second: 0</p>
-    </div>
     <div class="containerui">
         <div class="clicker" id="button">
             <p id="coins">0</p>
@@ -51,29 +43,49 @@
             <h1 style="margin: 10px;">how to play ccgameo</h1>
             <ul style="margin: 10px;">
                 <li>in tab {clicker} you click the black space</li>
+                <img src="./images/Screenshot From 2026-11-06 15-45-43.png" alt="clicker"
+                    style="width: 20rem; height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
                 <br>
-                <li>on the left youll see your stats your current coins, coins per click, upgrade tokens per click, tokens and user</li>
+                <li>on the bottom of your screen youll see your stats your current coins, coins per click, upgrade
+                    tokens per click, tokens and user and coins per second</li>
+                <img src="./images/Screenshot From 2026-11-06 15-48-19.png" alt="clicker" style=" width: 30rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
                 <br>
-                <li>to purchase a upgrade token youll go to the tab {upgrades} at the bottom theres a button that says "upgrade tokens"</li>
+                <li>to purchase a upgrade token youll go to the tab {upgrades} at the bottom theres a button that says
+                    "upgrade tokens"</li>
+                <img src="./images/Screenshot From 2026-11-06 15-54-04.png" alt="clicker" style=" width: 20rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
                 <br>
-                <li></li>
+                <li>with the upgrade tokens you can purchase card tokens by pressing the + buttom</li>
+                <img src="./images/Screenshot From 2026-11-06 15-55-36.png" alt="clicker" style=" width: 20rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
+                <br>
+                <li>with those card tokens you can purchase upgrades each upgrade requires a certain amount of card tokens</li>
+                <img src="./images/Screenshot From 2026-11-06 15-57-53.png" alt="clicker" style=" width: 20rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
             </ul>
         </div>
         <div class="updatelogtab" id="updatelogtab">
-            <h1 style="margin: 10px;">update 1.0.7b date: 6/11/2026</h1>
+            <h1 style="margin: 10px;">update 1.0.8b date: 6/11/2026</h1>
             <ul style="margin: 10px;">
-                <li>- autoclicker scales with autoclicker token formula: n*(stats.autoclickertokens)/100</li>
+                <li>- updated ui once again to fix upgrade tab problem</li>
+                <br>
+                <li>- updated tutorial to be more clear</li>
+                <br>
+                <li>- added coins per second</li>
+                <br>
+                <li>- advancements on the next beta update</li>
             </ul>
         </div>
         <div class="upgradetab" id="UPGRADES">
-            <h1 style="margin: 10px; border-bottom: 3px solid white; border-top: 3px solid white; margin: auto;">List of
+            <h1 style="border-bottom: 3px solid white; border-top: 3px solid white; width: max-content;">List of
                 UPGRADES</h1>
             <div class="cardlist">
                 <div class="upgrade1">
                     <div class="cardtitle">
                         <p id="cpstok">clicker - 0</p>
                         <div class="addimg" data-tooltip="purchase upgrade tokens with coins" id="cpsatok">
-                            <img src="./add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
+                            <img src="./images/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
                                 style="margin: 0; display: block;">
                         </div>
                     </div>
@@ -84,7 +96,7 @@
                         <div id="cpsup2" data-tooltip="x1.5 Coins per click req: clicker - 4" class="clickup">
                             <p>Multiply Clicks</p>
                         </div>
-                        <div id="cpsup3" data-tooltip="+0.01 UT per click req: clicker - 10" class="clickup">
+                        <div id="cpsup3" data-tooltip="+0.02 UT per click req: clicker - 10" class="clickup">
                             <p>UT Per Click</p>
                         </div>
                         <div id="cpsup4" data-tooltip="+0.5 Coins per click req: clicker - 20" class="clickup">
@@ -96,12 +108,14 @@
                     <div class="cardtitle1">
                         <p id="cbstok">autoclicker - 0</p>
                         <div class="addimg1" data-tooltip="purchase upgrade tokens with coins" id="cbsatok">
-                            <img src="./add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
+                            <img src="./images/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
                                 style="margin: 0; display: block;">
                         </div>
                     </div>
                     <div class="upgrades">
-                        <div id="cbsup1" data-tooltip="unlocks auto coin clicker, coins per click: 1 req: autoclicker - 10" class="clickup">
+                        <div id="cbsup1"
+                            data-tooltip="unlocks auto coin clicker, coins per click: 1 req: autoclicker - 10"
+                            class="clickup">
                             <p>Automatic Clicker</p>
                         </div>
                         <div id="cbsup2" data-tooltip="+0.01 UT per auto click req: autoclicker - 30" class="clickup">
@@ -128,6 +142,16 @@
             </div>
         </div>
     </div>
+    <div class="infobar">
+        <p>User: ?</p>
+        <p style="font-size: smaller;" id="cps">coins per second: 0</p>
+        <p style="font-size: smaller;" id="coinsperclick">coins per click: 0</p>
+        <p style="font-size: smaller;" id="tokenperclick">UT per click: 0</p>
+        <p style="font-size: smaller;" id="currentcoins">coins: 0</p>
+        <p style="font-size: smaller;" id="tokens">UT: 0</p>
+    </div>
+
+    <p style="color: gray; position: absolute; bottom: 0; right: 0; z-index: 666;" id="versiontext">current version: ?<br> your current version: ?</p>
     <div id="tooltip"></div>
     <script src="./game.js"></script>
     <script src="./nav.js"></script>
