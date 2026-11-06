@@ -2,8 +2,6 @@ document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
 
-
-
 let stats = JSON.parse(
     localStorage.getItem("stats")
 ) || {
@@ -59,7 +57,7 @@ upgrades.cpsup4.element = document.getElementById("cpsup4");
 upgrades.cbsup1.element = document.getElementById("cbsup1");
 upgrades.cbsup2.element = document.getElementById("cbsup2");
 
-const CURRENT_VERSION = "1.0.6b";
+const CURRENT_VERSION = "1.0.7b";
 const gameVersion = localStorage.getItem("gameVersion");
 
 if (gameVersion !== CURRENT_VERSION) {
@@ -136,7 +134,7 @@ function click() {
 }
 
 function aclick() {
-    stats.coins += stats.acps  + (stats.cbstok)/100
+    stats.coins += stats.acps  * (stats.cbstok/100)
     stats.tokens += stats.autotokensperclick
 }
 
