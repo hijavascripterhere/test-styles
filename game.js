@@ -134,7 +134,7 @@ function click() {
 }
 
 function aclick() {
-    stats.coins += stats.acps  * (stats.cbstok/100)
+    stats.coins += stats.acps  * (stats.cbstok)/100
     stats.tokens += stats.autotokensperclick
 }
 
