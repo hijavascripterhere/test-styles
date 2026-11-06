@@ -59,6 +59,17 @@ upgrades.cpsup4.element = document.getElementById("cpsup4");
 upgrades.cbsup1.element = document.getElementById("cbsup1");
 upgrades.cbsup2.element = document.getElementById("cbsup2");
 
+const CURRENT_VERSION = "1.0.6b";
+const gameVersion = localStorage.getItem("gameVersion");
+
+if (gameVersion !== CURRENT_VERSION) {
+    localStorage.removeItem("stats");
+    localStorage.removeItem("upgrades");
+
+    localStorage.setItem("gameVersion", CURRENT_VERSION);
+    updatetext()
+}
+
 const button = document.getElementById("button")
 var coins = document.getElementById("coins")
 var currentcoins = document.getElementById("currentcoins")
@@ -143,17 +154,6 @@ setInterval(function () {
         updatetext()
     }
 }, 500)
-
-const CURRENT_VERSION = "1.0.7b";
-const gameVersion = localStorage.getItem("gameVersion");
-
-if (gameVersion !== CURRENT_VERSION) {
-    localStorage.removeItem("stats");
-    localStorage.removeItem("upgrades");
-
-    localStorage.setItem("gameVersion", CURRENT_VERSION);
-    updatetext()
-}
 
 /* ugrade functions */
 
