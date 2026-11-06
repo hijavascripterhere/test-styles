@@ -8,7 +8,7 @@ let stats = JSON.parse(
     localStorage.getItem("stats")
 ) || {
     coins: 0,
-    coinsperclick: 100,
+    coinsperclick: 0.5,
     tokens: 0,
     cpstok: 0,
     tokensperclick: 0,
