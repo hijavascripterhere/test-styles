@@ -23,7 +23,7 @@ document.addEventListener("contextmenu", function (e) {
 
 let stats = {
     coins: 0,
-    coinsperclick: 0.5,
+    coinsperclick: 100,
     tokens: 0,
     cpstok: 0,
     tokensperclick: 0,
@@ -74,7 +74,7 @@ upgrades.cbsup2.element = document.getElementById("cbsup2");
 
 var versiontext = document.getElementById("versiontext")
 
-const CURRENT_VERSION = "1.0.8b";
+const CURRENT_VERSION = "v1.0.0";
 
 versiontext.innerHTML = `newest version: ${CURRENT_VERSION}`;
 
@@ -167,7 +167,7 @@ async function loadGame(user) {
                         data.upgrades[upgrade].available;
                 }
             }
-
+            document.getElementById("username").innerText = `User: ${user.email}`;
             console.log("Save loaded!");
         } else {
             console.log("New player! Creating save...");
@@ -378,18 +378,21 @@ onAuthStateChanged(auth, async function (user) {
     gameReady = false;
 
     if (user) {
-        authContainer.hidden = true;
-        accountContainer.hidden = false;
+    authContainer.hidden = true;
+    accountContainer.hidden = true;
 
-        accountEmail.textContent = user.email;
+    await loadGame(user);
 
-        await loadGame(user);
-    } else {
-        authContainer.hidden = false;
-        accountContainer.hidden = true;
+    document.getElementById("auth-overlay").style.display = "none";
 
-        console.log("Not logged in");
-    }
+} else {
+    authContainer.hidden = false;
+    accountContainer.hidden = true;
+
+    document.getElementById("auth-overlay").style.display = "flex";
+
+    console.log("Not logged in");
+}
 });
 
 setInterval(function () {

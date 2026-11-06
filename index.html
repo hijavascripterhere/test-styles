@@ -60,23 +60,18 @@
                 <img src="./images/Screenshot From 2026-11-06 15-55-36.png" alt="clicker" style=" width: 20rem;
     height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
                 <br>
-                <li>with those card tokens you can purchase upgrades each upgrade requires a certain amount of card tokens</li>
+                <li>with those card tokens you can purchase upgrades each upgrade requires a certain amount of card
+                    tokens</li>
                 <img src="./images/Screenshot From 2026-11-06 15-57-53.png" alt="clicker" style=" width: 20rem;
     height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
             </ul>
         </div>
         <div class="updatelogtab" id="updatelogtab">
-            <h1 style="margin: 10px;">update 1.0.8b date: 6/11/2026</h1>
+            <h1 style="margin: 10px;">update v1.0.0 date: 6/11/2026</h1>
             <ul style="margin: 10px;">
-                <li>- updated ui once again to fix upgrade tab problem</li>
+                <li>- first ever full release!</li>
                 <br>
-                <li>- updated tutorial to be more clear</li>
-                <br>
-                <li>- added coins per second</li>
-                <br>
-                <li>- advancements on the next beta update</li>
-                <br>
-                <li>- mirabel was here</li>
+                <li>- persistant data saving works cross device now</li>
             </ul>
         </div>
         <div class="upgradetab" id="UPGRADES">
@@ -143,8 +138,9 @@
                 </div>
             </div>
         </div>
-        <div id="auth-container">
-            <h2>Account</h2>
+        <div id="auth-overlay">
+            <div id="auth-container">
+                <h2>Account</h2>
 
             <div id="login-form">
                 <h3>Login</h3>
@@ -169,15 +165,16 @@
             </div>
 
             <p id="auth-message"></p>
-        </div>
+            </div>
 
-        <div id="account-container" hidden>
-            <p>Logged in as: <span id="account-email"></span></p>
-            <button id="logout-button">Logout</button>
+            <div id="account-container" hidden>
+                <p>Logged in as: <span id="account-email"></span></p>
+                <button id="logout-button">Logout</button>
+            </div>
         </div>
     </div>
     <div class="infobar">
-        <p>User: ?</p>
+        <p id="username">User: ?</p>
         <p style="font-size: smaller;" id="cps">coins per second: 0</p>
         <p style="font-size: smaller;" id="coinsperclick">coins per click: 0</p>
         <p style="font-size: smaller;" id="tokenperclick">UT per click: 0</p>
