@@ -44,7 +44,7 @@ let upgrades = JSON.parse(
         available: true,
     },
     cbsup2: {
-        cost: 10,
+        cost: 30,
         available: true,
     }
 }
@@ -144,7 +144,7 @@ setInterval(function () {
     }
 }, 500)
 
-const CURRENT_VERSION = "1.0.6b";
+const CURRENT_VERSION = "1.0.7b";
 const gameVersion = localStorage.getItem("gameVersion");
 
 if (gameVersion !== CURRENT_VERSION) {
