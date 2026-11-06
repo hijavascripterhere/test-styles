@@ -144,7 +144,7 @@ setInterval(function () {
     }
 }, 500)
 
-const CURRENT_VERSION = "1.0.4b";
+const CURRENT_VERSION = "1.0.5b";
 const gameVersion = localStorage.getItem("gameVersion");
 
 if (gameVersion !== CURRENT_VERSION) {

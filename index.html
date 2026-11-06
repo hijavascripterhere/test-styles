@@ -1,24 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            display: flex;
-            background-color: gray;
-            width: 100%;
-            height: 100vh;
-            justify-content: center;
-            align-items: center;
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            flex-direction: column;
-        }
-    </style>
+    <title>ccgameo</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
+
 <body>
-    <h1>website is temporarily down</h1>
-    <p>reason: upgrade ui not working</p>
+    <div class="navbar">
+        <div class="nav-button" id="navclicker">
+            <p>CLICKER</p>
+        </div>
+        <div class="nav-button" id="navupgrades">
+            <p>UPGRADES</p>
+        </div>
+        <div class="nav-button" id="navtutorial">
+            <p>TUTORIAL</p>
+        </div>
+        <div class="nav-button" id="navachievements">
+            <p>ACHIEVEMENTS</p>
+        </div>
+        <div class="nav-button" id="navupdatelog">
+            <p>UPDATE LOG</p>
+        </div>
+        <!--
+        <div class="nav-button">
+            <p>UPDATE LOG</p>
+        </div>
+        <div class="nav-button">
+            <p>REGISTER</p>
+        </div>
+        <div class="nav-button">
+            <p>CRATES (coming soon)</p>
+        </div>
+        -->
+    </div>
+    <div class="infobar">
+        <p>User: ?</p>
+        <p style="font-size: smaller;" id="coinsperclick">coins per click: 0</p>
+        <p style="font-size: smaller;" id="tokenperclick">UT per click: 0</p>
+        <p style="font-size: smaller;" id="currentcoins">coins: 0</p>
+        <p style="font-size: smaller;" id="tokens">UT: 0</p>
+    </div>
+    <div class="containerui">
+        <div class="clicker" id="button">
+            <p id="coins">0</p>
+        </div>
+        <div class="tutorialtab" id="tutorialtab">
+            <h1 style="margin: 10px;">how to play ccgameo</h1>
+            <ul style="margin: 10px;">
+                <li>in tab {clicker} you click the black space</li>
+                <br>
+                <li>on the left youll see your stats your current coins, coins per click, upgrade tokens per click, tokens and user</li>
+                <br>
+                <li>to purchase a upgrade token youll go to the tab {upgrades} at the bottom theres a button that says "upgrade tokens"</li>
+                <br>
+                <li></li>
+            </ul>
+        </div>
+        <div class="updatelogtab" id="updatelogtab">
+            <h1 style="margin: 10px;">update 1.0.5b date: 6/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- fixed data reset to happen when ever new update happens</li>
+            </ul>
+        </div>
+        <div class="upgradetab" id="UPGRADES">
+            <h1 style="margin: 10px; border-bottom: 3px solid white; border-top: 3px solid white; margin: auto;">List of
+                UPGRADES</h1>
+            <div class="cardlist">
+                <div class="upgrade1">
+                    <div class="cardtitle">
+                        <p id="cpstok">clicker - 0</p>
+                        <div class="addimg" data-tooltip="purchase upgrade tokens with coins" id="cpsatok">
+                            <img src="./add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
+                                style="margin: 0; display: block;">
+                        </div>
+                    </div>
+                    <div class="upgrades">
+                        <div id="cpsup1" data-tooltip="+0.3 Coins per click req: clicker - 1" class="clickup">
+                            <p>Coins Per Click</p>
+                        </div>
+                        <div id="cpsup2" data-tooltip="x1.5 Coins per click req: clicker - 4" class="clickup">
+                            <p>Multiply Clicks</p>
+                        </div>
+                        <div id="cpsup3" data-tooltip="+0.01 UT per click req: clicker - 10" class="clickup">
+                            <p>UT Per Click</p>
+                        </div>
+                        <div id="cpsup4" data-tooltip="+0.5 Coins per click req: clicker - 20" class="clickup">
+                            <p>More Clicks</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="upgrade2">
+                    <div class="cardtitle1">
+                        <p id="cbstok">autoclicker - 0</p>
+                        <div class="addimg1" data-tooltip="purchase upgrade tokens with coins" id="cbsatok">
+                            <img src="./add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
+                                style="margin: 0; display: block;">
+                        </div>
+                    </div>
+                    <div class="upgrades">
+                        <div id="cbsup1" data-tooltip="unlocks auto coin clicker, coins per click: 1 req: autoclicker - 10" class="clickup">
+                            <p>Automatic Clicker</p>
+                        </div>
+                        <div id="cbsup2" data-tooltip="+0.01 UT per auto click req: autoclicker - 30" class="clickup">
+                            <p>Automatic UT-Clicker</p>
+                        </div>
+                        <!--
+                        <div id="cbsup3" data-tooltip="+2 coins per click req: 35" class="clickup">
+                            <p>More Clicks</p>
+                        </div>
+                        <div id="cbsup4" data-tooltip="+3X coins per click req: 40" class="clickup">
+                            <p>Multiply Clicks</p>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+            <div class="buttonline">
+                <div class="wipeupgrades" data-tooltip="delete all upgrades">
+                    <p>WIPE</p>
+                </div>
+                <div class="tokens" data-tooltip="used to unlock upgrades cost: 15 coins" id="ptokens">
+                    <p>UT cost: ?$</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tooltip"></div>
+    <script src="./game.js"></script>
+    <script src="./nav.js"></script>
+    <script src="./tooltip.js"></script>
 </body>
+
 </html>
+
+<!--test-->
