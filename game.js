@@ -75,6 +75,7 @@ var coinsperclick = document.getElementById("coinsperclick")
 var tokens = document.getElementById("tokens")
 var tokenperclick = document.getElementById("tokenperclick")
 var ptokens = document.getElementById("ptokens")
+var cps = document.getElementById("cps")
 
 var cpstok = document.getElementById("cpstok")
 var cpsatok = document.getElementById("cpsatok")
@@ -145,6 +146,17 @@ button.onclick = function () {
     click()
     updatetext();
 }
+
+var cc = stats.coins
+
+setInterval(function () {
+    var newcc = stats.coins
+    var upcc = newcc - cc
+
+    cps.innerHTML = `coins per second: ${roundn(upcc)}$`
+
+    cc = newcc
+}, 1000)
 
 setInterval(function () {
     if (stats.autoclickerunl) {
