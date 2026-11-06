@@ -1,8 +1,70 @@
-import { auth, db } from "./firebase.js";
+import {
+    auth,
+    register,
+    login,
+    logout,
+    onAuthStateChanged
+} from "./firebase.js";
 
-console.log("Firebase initialized!");
-console.log("Authentication:", auth);
-console.log("Database:", db);
+let currentUser = null;
+
+const authContainer = document.getElementById("auth-container");
+const accountContainer = document.getElementById("account-container");
+
+const authMessage = document.getElementById("auth-message");
+const accountEmail = document.getElementById("account-email");
+
+document.getElementById("register-button").onclick = async () => {
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+
+    try {
+        await register(email, password);
+        authMessage.textContent = "Account created!";
+    } catch (error) {
+        authMessage.textContent = error.message;
+        console.error(error);
+    }
+};
+
+document.getElementById("login-button").onclick = async () => {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+        await login(email, password);
+        authMessage.textContent = "Logged in!";
+    } catch (error) {
+        authMessage.textContent = error.message;
+        console.error(error);
+    }
+};
+
+document.getElementById("logout-button").onclick = async () => {
+    try {
+        await logout();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+
+    if (user) {
+        authContainer.hidden = true;
+        accountContainer.hidden = false;
+
+        accountEmail.textContent = user.email;
+
+        console.log("Logged in:", user.uid);
+    } else {
+        authContainer.hidden = false;
+        accountContainer.hidden = true;
+
+        console.log("Not logged in");
+    }
+});
 
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault()

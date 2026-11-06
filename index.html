@@ -142,6 +142,38 @@
                 </div>
             </div>
         </div>
+        <div id="auth-container">
+            <h2>Account</h2>
+
+            <div id="login-form">
+                <h3>Login</h3>
+
+                <input id="login-email" type="email" placeholder="Email">
+
+                <input id="login-password" type="password" placeholder="Password">
+
+                <button id="login-button">Login</button>
+            </div>
+
+            <hr>
+
+            <div id="register-form">
+                <h3>Create account</h3>
+
+                <input id="register-email" type="email" placeholder="Email">
+
+                <input id="register-password" type="password" placeholder="Password">
+
+                <button id="register-button">Register</button>
+            </div>
+
+            <p id="auth-message"></p>
+        </div>
+
+        <div id="account-container" hidden>
+            <p>Logged in as: <span id="account-email"></span></p>
+            <button id="logout-button">Logout</button>
+        </div>
     </div>
     <div class="infobar">
         <p>User: ?</p>

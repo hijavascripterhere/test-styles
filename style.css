@@ -70,7 +70,7 @@ body {
 }
 
 .clicker {
-    display: flex;
+    display: none;
     background-color: black;
     color: orange;
     width: 100%;
@@ -303,4 +303,12 @@ body {
     height: 100%;
     flex-direction: column;
     font-size: large;
+}
+
+#auth-container {
+    display: flex;
+    background-color: black;
+    color: #ffffff;
+    width: 100%;
+    height: 100%;
 }
