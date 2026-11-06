@@ -57,7 +57,7 @@ upgrades.cpsup4.element = document.getElementById("cpsup4");
 upgrades.cbsup1.element = document.getElementById("cbsup1");
 upgrades.cbsup2.element = document.getElementById("cbsup2");
 
-const CURRENT_VERSION = "1.0.8b";
+const CURRENT_VERSION = "1.0.7b";
 const gameVersion = localStorage.getItem("gameVersion");
 
 if (gameVersion !== CURRENT_VERSION) {
