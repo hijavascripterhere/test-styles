@@ -217,14 +217,14 @@ function priceinc(num) {
 
 function click() {
     if (!gameReady) return;
-    stats.coins += stats.coinsperclick
-    stats.tokens += stats.tokensperclick
+    stats.coins += roundn(stats.coinsperclick)
+    stats.tokens += roundn(stats.tokensperclick)
 }
 
 function aclick() {
     if (!gameReady) return;
-    stats.coins += stats.acps  * ((stats.cbstok/100)+1)
-    stats.tokens += stats.autotokensperclick
+    stats.coins += roundn(stats.acps)  * roundn(((stats.cbstok/100)+1))
+    stats.tokens += roundn(stats.autotokensperclick)
 }
 
 /* update text on start of website */
@@ -288,7 +288,7 @@ cbsatok.onclick = function () {
 cpsup1.onclick = function () {
     if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup1"].cost && upgrades["cpsup1"].available) {
-        stats.coinsperclick += 0.3
+        stats.coinsperclick += roundn(0.3)
         upgrades["cpsup1"].available = false
         updatetext()
     }
@@ -297,7 +297,7 @@ cpsup1.onclick = function () {
 cpsup2.onclick = function () {
     if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup2"].cost && upgrades["cpsup2"].available) {
-        stats.coinsperclick *= 1.5
+        stats.coinsperclick *= roundn(1.5)
         upgrades["cpsup2"].available = false
         updatetext()
     }
@@ -306,7 +306,7 @@ cpsup2.onclick = function () {
 cpsup3.onclick = function () {
     if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup3"].cost && upgrades["cpsup3"].available) {
-        stats.tokensperclick += 0.02
+        stats.tokensperclick += roundn(0.02)
         upgrades["cpsup3"].available = false
         updatetext()
     }
@@ -315,7 +315,7 @@ cpsup3.onclick = function () {
 cpsup4.onclick = function () {
     if (!gameReady) return;
     if (stats.cpstok >= upgrades["cpsup4"].cost && upgrades["cpsup4"].available) {
-        stats.coinsperclick += 0.5
+        stats.coinsperclick += roundn(0.5)
         upgrades["cpsup4"].available = false
         updatetext()
     }
@@ -333,7 +333,7 @@ cbsup1.onclick = function () {
 cbsup2.onclick = function () {
     if (!gameReady) return;
     if (stats.cbstok >= upgrades["cbsup2"].cost && upgrades["cbsup2"].available) {
-        stats.autotokensperclick += 0.01
+        stats.autotokensperclick += roundn(0.01)
         upgrades["cbsup2"].available = false
         updatetext()
     }
@@ -361,6 +361,7 @@ document.getElementById("login-button").onclick = async function () {
     try {
         await login(email, password);
         authMessage.textContent = "Logged in!";
+        location.reload()
     } catch (error) {
         authMessage.textContent = error.message;
         console.error(error);
