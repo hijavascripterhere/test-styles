@@ -1,3 +1,9 @@
+import { auth, db } from "./firebase.js";
+
+console.log("Firebase initialized!");
+console.log("Authentication:", auth);
+console.log("Database:", db);
+
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
