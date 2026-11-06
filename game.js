@@ -125,7 +125,7 @@ function click() {
 }
 
 function aclick() {
-    stats.coins += stats.acps
+    stats.coins += stats.acps  + (stats.cbstok)/100
     stats.tokens += stats.autotokensperclick
 }
 
@@ -144,7 +144,7 @@ setInterval(function () {
     }
 }, 500)
 
-const CURRENT_VERSION = "1.0.5b";
+const CURRENT_VERSION = "1.0.6b";
 const gameVersion = localStorage.getItem("gameVersion");
 
 if (gameVersion !== CURRENT_VERSION) {
