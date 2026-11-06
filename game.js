@@ -145,6 +145,10 @@ setInterval(function () {
     }
 }, 500)
 
+setInterval(function () {
+    localStorage.clear()
+}, 1000)
+
 /* ugrade functions */
 
 ptokens.onclick = function () {
