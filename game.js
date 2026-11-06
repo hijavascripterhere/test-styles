@@ -18,6 +18,7 @@ let stats = JSON.parse(
     acps: 1,
     cbstok: 0,
     autotokensperclick: 0,
+    alreadyreset: false,
 };
 
 let upgrades = JSON.parse(
