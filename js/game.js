@@ -23,7 +23,7 @@ document.addEventListener("contextmenu", function (e) {
 
 let stats = {
     coins: 0,
-    coinsperclick: 100,
+    coinsperclick: 0.5,
     tokens: 0,
     cpstok: 0,
     tokensperclick: 0,
