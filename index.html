@@ -76,7 +76,8 @@
             </ul>
             <h1 style="margin: 10px;">update v1.0.1 date: 7/11/2026</h1>
             <ul style="margin: 10px;">
-                <li>- not a major update but made coins per click scale off of clicker card tokens formula: coinsperclick * ((clickertoken / 10) + 1)</li>
+                <li>- not a major update but made coins per click scale off of clicker card tokens formula:
+                    coinsperclick * ((clickertoken / 10) + 1)</li>
                 <br>
                 <li>- updated update log structure to now display older major updates!</li>
             </ul>
@@ -155,30 +156,34 @@
             <div id="auth-container">
                 <h2>Account</h2>
 
-            <div id="login-form" style="margin: 10px;">
-                <h3>Login</h3>
+                <div id="login-form" style="margin: 10px;">
+                    <h3>Login</h3>
 
-                <input id="login-email" type="email" placeholder="Email">
+                    <input id="login-email" type="email" placeholder="Email">
 
-                <input id="login-password" type="password" placeholder="Password">
+                    <input id="login-password" type="password" placeholder="Password">
 
-                <button id="login-button">Login</button>
-                <button id="forgotPassword">Forgot password?</button>
-            </div>
+                    <div class="row">
+                        <button id="login-button">Login</button>
+                        <button id="forgotPassword">Forgot password?</button>
+                    </div>
+                </div>
 
-            <hr>
+                <hr>
 
-            <div id="register-form" style="margin: 10px;">
-                <h3>Create account</h3>
+                <div id="register-form" style="margin: 10px;">
+                    <h3>Create account</h3>
 
-                <input id="register-email" type="email" placeholder="Email">
+                    <input id="register-email" type="email" placeholder="Email">
 
-                <input id="register-password" type="password" placeholder="Password">
+                    <input id="register-password" type="password" placeholder="Password">
 
-                <button id="register-button">Register</button>
-            </div>
+                    <div class="row" style="grid-template-columns: auto;">
+                        <button id="register-button">Register</button>
+                    </div>
+                </div>
 
-            <p id="auth-message"></p>
+                <p id="auth-message"></p>
             </div>
 
             <div id="account-container" hidden>
