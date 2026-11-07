@@ -404,4 +404,4 @@ onAuthStateChanged(auth, async function (user) {
 
 setInterval(function () {
     uploadSave();
-}, 100);
+}, 1000);
