@@ -9,7 +9,12 @@ import {
     doc,
     getDoc,
     setDoc,
-    serverTimestamp
+    serverTimestamp,
+    collection,
+    query,
+    orderBy,
+    limit,
+    getDocs
 } from "./firebase.js";
 
 const authContainer = document.getElementById("auth-container");
@@ -76,7 +81,7 @@ upgrades.cbsup2.element = document.getElementById("cbsup2");
 
 var versiontext = document.getElementById("versiontext")
 
-const CURRENT_VERSION = "v1.0.2";
+const CURRENT_VERSION = "v1.0.3";
 
 versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
 
@@ -97,14 +102,13 @@ var cpsatok = document.getElementById("cpsatok")
 var cbsatok = document.getElementById("cbsatok")
 var cbstok = document.getElementById("cbstok")
 
-function toggleMenu() {
-    const menu = document.getElementById("menu");
+const leaderboardList = document.getElementById("leaderboard-list");
+const leaderboardMessage = document.getElementById("leaderboard-message");
 
-    if (menu.style.display === "block") {
-        menu.style.display = "none";
-    } else {
-        menu.style.display = "block";
-    }
+let leaderboardCategory = "coins";
+
+function roundn(num) {
+    return Math.round(num * 100) / 100;
 }
 
 function abbreviate(num) {
@@ -123,9 +127,69 @@ function abbreviate(num) {
     return num;
 }
 
-function roundn(num) {
-    return Math.round(num * 100) / 100;
+async function loadLeaderboard() {
+
+    if (!currentUser) return;
+
+    leaderboardMessage.textContent = "Loading...";
+    leaderboardList.replaceChildren();
+
+    try {
+
+        const leaderboardQuery = query(
+            collection(db, "leaderboard"),
+            orderBy(leaderboardCategory, "desc"),
+            limit(10)
+        );
+
+        const snapshot = await getDocs(leaderboardQuery);
+
+        if (snapshot.empty) {
+            leaderboardMessage.textContent = "No players yet!";
+            return;
+        }
+
+        let index = 0;
+
+        snapshot.forEach((playerDoc) => {
+
+            const player = playerDoc.data();
+
+            const entry = document.createElement("li");
+
+            const value = player[leaderboardCategory] ?? 0;
+            document.getElementById("currentcategory").innerHTML = `- ${leaderboardCategory} -`;
+
+            entry.textContent =
+                `${index + 1}. ${player.username || "Player"} - ${abbreviate(roundn(value))}`;
+
+            leaderboardList.appendChild(entry);
+
+            index++;
+
+        });
+
+        leaderboardMessage.textContent = "";
+
+    } catch (error) {
+
+        console.error("Leaderboard error:", error);
+        leaderboardMessage.textContent = "Couldn't load leaderboard.";
+
+    }
 }
+
+document.querySelectorAll("[data-leaderboard]").forEach(div => {
+
+    div.onclick = function () {
+
+        leaderboardCategory = this.dataset.leaderboard;
+
+        loadLeaderboard();
+
+    };
+
+});
 
 let currentUser = null;
 let gameReady = false;
@@ -158,7 +222,26 @@ async function uploadSave() {
             schemaVersion: 1
         });
 
-        console.log("Game saved to cloud!");
+
+        // Update leaderboard
+        const leaderboardRef = doc(db, "leaderboard", currentUser.uid);
+
+        await setDoc(leaderboardRef, {
+            username: stats.username || "Player",
+            coins: stats.coins,
+            UT: stats.tokens,
+            coinsperclick: stats.coinsperclick,
+            autoclicker: stats.acps,
+
+            // Autoclicker runs every 500ms
+            cps: stats.autoclickerunl
+                ? stats.acps * ((stats.cbstok / 100) + 1) * 2
+                : 0,
+
+            updatedAt: serverTimestamp()
+        });
+
+        console.log("Game saved and leaderboard updated!");
     } catch (error) {
         saveDirty = true;
         console.error("Save failed:", error);
@@ -187,7 +270,7 @@ async function loadGame(user) {
                         data.upgrades[upgrade].available;
                 }
             }
-            
+
             console.log("Save loaded!");
         } else {
             console.log("New player! Creating save...");
@@ -252,8 +335,12 @@ updatetext()
 
 registeruser.onclick = function () {
     var usr = prompt("enter your user")
-    stats.username = usr
-    updatetext()
+    if (usr) {
+        stats.username = usr
+        updatetext()
+    } else {
+        alert("please enter something")
+    }
 }
 
 button.onclick = function () {
@@ -445,7 +532,7 @@ onAuthStateChanged(auth, async function (user) {
         accountContainer.hidden = true;
 
         await loadGame(user);
-
+        await loadLeaderboard();
         document.getElementById("auth-overlay").style.display = "none";
 
     } else {
@@ -457,6 +544,10 @@ onAuthStateChanged(auth, async function (user) {
         console.log("Not logged in");
     }
 });
+
+document.getElementById("leaderboard-refresh").onclick = function () {
+    loadLeaderboard();
+};
 
 setInterval(function () {
     uploadSave();

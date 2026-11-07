@@ -20,9 +20,6 @@
         <div class="nav-button" id="navtutorial">
             <p>TUTORIAL</p>
         </div>
-        <div class="nav-button" id="navachievements">
-            <p>ACHIEVEMENTS</p>
-        </div>
         <div class="nav-button" id="navupdatelog">
             <p>UPDATE LOG</p>
         </div>
@@ -31,8 +28,9 @@
                 <p>MISC</p>
             </div>
 
-            <div class="menu">
+            <div class="menu" id="menu">
                 <p style="margin: 10px;" id="registeruser">register user</p>
+                <p style="margin: 10px;" id="navleaderboard">leaderboard</p>
             </div>
         </div>
         <div class="nav-button" id="logout-button" onclick="toggleMenu()">
@@ -79,6 +77,12 @@
             </ul>
         </div>
         <div class="updatelogtab" id="updatelogtab">
+            <h1 style="margin: 10px;">update v1.0.3 date: 7/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- added usernames (under misc)</li>
+                <br>
+                <li>- added global leaderboard (under misc)</li>
+            </ul>
             <h1 style="margin: 10px;">update v1.0.2 date: 7/11/2026</h1>
             <ul style="margin: 10px;">
                 <li>- added password reset</li>
@@ -199,13 +203,25 @@
                 <button id="logout-button">Logout</button>
             </div>
         </div>
-        <div class="misctab" id="misctab">
-            <h1 class="nav-button">Leaderboard</h1>
-            <h1 class="nav-button">Leaderboard</h1>
-            <h1 class="nav-button">Leaderboard</h1>
-            <h1 class="nav-button">Leaderboard</h1>
-            <h1 class="nav-button">Leaderboard</h1>
-            <h1 class="nav-button">username</h1>
+        <div class="leaderboardtab" id="leaderboardtab">
+            <div id="leaderboard">
+
+                <h1>Leaderoard</h1>
+
+                <div class="buttonrow">
+                    <div class="nav-button" data-leaderboard="coins">Coins</div>
+                    <div class="nav-button" data-leaderboard="UT">Upgrade tokens</div>
+                    <div class="nav-button" data-leaderboard="coinsperclick">Coins per click</div>
+                    <div class="nav-button" data-leaderboard="autoclicker">auto clicker: coins per click</div>
+                    <div class="nav-button" id="leaderboard-refresh">refresh</div>
+                </div>
+
+                <h2 id="currentcategory"></h2>
+                <ol id="leaderboard-list"></ol>
+
+                <p id="leaderboard-message"></p>
+
+            </div>
         </div>
     </div>
     <div class="infobar">
