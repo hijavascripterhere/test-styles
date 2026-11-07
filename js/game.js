@@ -4,6 +4,7 @@ import {
     register,
     login,
     logout,
+    resetPassword,
     onAuthStateChanged,
     doc,
     getDoc,
@@ -384,6 +385,23 @@ document.getElementById("logout-button").onclick = async function () {
         console.log("user canceled")
     }
 };
+
+document.getElementById("forgotPassword").addEventListener("click", async () => {
+    const email = document.getElementById("login-email").value.trim();
+
+    if (!email) {
+        authMessage.textContent = "Enter your email first!";
+        return;
+    }
+
+    try {
+        await resetPassword(email);
+        authMessage.textContent = "Password reset email sent! Check your inbox.";
+    } catch (error) {
+        console.error("Password reset error:", error);
+        authMessage.textContent = "Couldn't send reset email: " + error.message;
+    }
+});
 
 onAuthStateChanged(auth, async function (user) {
     currentUser = user;
