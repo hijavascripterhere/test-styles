@@ -34,6 +34,7 @@ let stats = {
     acps: 1,
     cbstok: 0,
     autotokensperclick: 0,
+    username: "",
 };
 
 let upgrades = {
@@ -87,12 +88,24 @@ var tokens = document.getElementById("tokens")
 var tokenperclick = document.getElementById("tokenperclick")
 var ptokens = document.getElementById("ptokens")
 var cps = document.getElementById("cps")
+var user = document.getElementById("username")
+const registeruser = document.getElementById("registeruser")
 
 var cpstok = document.getElementById("cpstok")
 var cpsatok = document.getElementById("cpsatok")
 
 var cbsatok = document.getElementById("cbsatok")
 var cbstok = document.getElementById("cbstok")
+
+function toggleMenu() {
+    const menu = document.getElementById("menu");
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
 
 function abbreviate(num) {
     if (num >= 1e33) return (num / 1e30).toFixed(1) + "D";
@@ -174,7 +187,7 @@ async function loadGame(user) {
                         data.upgrades[upgrade].available;
                 }
             }
-            document.getElementById("username").innerText = `User: ${user.email}`;
+            
             console.log("Save loaded!");
         } else {
             console.log("New player! Creating save...");
@@ -213,6 +226,7 @@ function updatetext() {
     tokenperclick.innerHTML = `UT per click: ${abbreviate(roundn(stats.tokensperclick))}`
     ptokens.innerHTML = `UT cost: ${abbreviate(roundn(stats.UTcost))}$`
     cbstok.innerHTML = `autoclicker - ${abbreviate(roundn(stats.cbstok))}`
+    user.innerHTML = `User: ${stats.username}`
     savegame()
 }
 
@@ -235,6 +249,12 @@ function aclick() {
 
 /* update text on start of website */
 updatetext()
+
+registeruser.onclick = function () {
+    var usr = prompt("enter your user")
+    stats.username = usr
+    updatetext()
+}
 
 button.onclick = function () {
     click()
