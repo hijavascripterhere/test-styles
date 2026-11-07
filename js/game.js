@@ -74,7 +74,7 @@ upgrades.cbsup2.element = document.getElementById("cbsup2");
 
 var versiontext = document.getElementById("versiontext")
 
-const CURRENT_VERSION = "v1.0.0";
+const CURRENT_VERSION = "v1.0.1";
 
 versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
 
@@ -206,7 +206,7 @@ function updatetext() {
     }
     coins.innerText = `${abbreviate(roundn(stats.coins))}$`;
     currentcoins.innerHTML = `coins: ${abbreviate(roundn(stats.coins))}$`
-    coinsperclick.innerHTML = `coins per click: ${abbreviate(roundn(stats.coinsperclick))}`
+    coinsperclick.innerHTML = `coins per click: ${abbreviate(roundn(stats.coinsperclick) * roundn(((roundn(stats.cpstok / 10)) + 1)))}`
     tokens.innerHTML = `UT: ${abbreviate(roundn(stats.tokens))}`
     cpstok.innerHTML = `Clicker - ${abbreviate(roundn(stats.cpstok))}`
     tokenperclick.innerHTML = `UT per click: ${abbreviate(roundn(stats.tokensperclick))}`
@@ -217,13 +217,12 @@ function updatetext() {
 
 
 function priceinc(num) {
-    num = num * 1.1
-    return num
+    return num *= 1.1
 }
 
 function click() {
     if (!gameReady) return;
-    stats.coins += roundn(stats.coinsperclick)
+    stats.coins += roundn(stats.coinsperclick) * roundn(((stats.cpstok / 10) + 1))
     stats.tokens += roundn(stats.tokensperclick)
 }
 
@@ -247,7 +246,7 @@ setInterval(function () {
     var newcc = stats.coins
     var upcc = newcc - cc
 
-    cps.innerHTML = `coins per second: ${roundn(upcc)}$`
+    cps.innerHTML = `coins per second: ${abbreviate(roundn(upcc))}$`
 
     cc = newcc
 }, 1000)
