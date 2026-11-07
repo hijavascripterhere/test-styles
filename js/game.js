@@ -206,7 +206,7 @@ function updatetext() {
     }
     coins.innerText = `${abbreviate(roundn(stats.coins))}$`;
     currentcoins.innerHTML = `coins: ${abbreviate(roundn(stats.coins))}$`
-    coinsperclick.innerHTML = `coins per click: ${abbreviate(roundn(stats.coinsperclick) * roundn(((roundn(stats.cpstok / 10)) + 1)))}`
+    coinsperclick.innerHTML = `coins per click: ${abbreviate(roundn(stats.coinsperclick * ((stats.cpstok / 10)) + 1))}`
     tokens.innerHTML = `UT: ${abbreviate(roundn(stats.tokens))}`
     cpstok.innerHTML = `Clicker - ${abbreviate(roundn(stats.cpstok))}`
     tokenperclick.innerHTML = `UT per click: ${abbreviate(roundn(stats.tokensperclick))}`
