@@ -395,15 +395,24 @@ document.getElementById("forgotPassword").addEventListener("click", async () => 
 
     if (!email) {
         authMessage.textContent = "Enter your email first!";
+        setTimeout(() => {
+            authMessage.textContent = "";
+        }, 1000);
         return;
     }
 
     try {
         await resetPassword(email);
         authMessage.textContent = "Password reset email sent! Check your inbox.";
+        setTimeout(() => {
+            authMessage.textContent = "";
+        }, 1000);
     } catch (error) {
         console.error("Password reset error:", error);
         authMessage.textContent = "Couldn't send reset email: " + error.message;
+        setTimeout(() => {
+            authMessage.textContent = "";
+        }, 1000);
     }
 });
 
@@ -431,4 +440,4 @@ onAuthStateChanged(auth, async function (user) {
 
 setInterval(function () {
     uploadSave();
-}, 1000);
+}, 10000);

@@ -339,12 +339,12 @@ body {
 
     color: white;
     text-align: center;
-    justify-content: center;
+    align-items: center;
 }
 
 #auth-container input {
     box-sizing: border-box;
-    padding: 10px;
+    height: 2rem;
     width: 100%;
     text-align: center;
     display: flex;
@@ -359,15 +359,15 @@ body {
     display: grid;
     grid-template-columns: 1fr 2fr;
     height: 2rem;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
 }
 
 #login-form {
     display: grid;
     grid-template-rows: auto auto auto;
-    gap: 10px;
-    width: 15rem;
+    gap: 5px;
+    width: max-content;
     height: 10rem;
     align-items: center;
     flex-direction: column;
@@ -378,7 +378,7 @@ body {
     display: grid;
     grid-template-rows: auto auto auto;
     gap: 10px;
-    width: 15rem;
+    width: max-content;
     height: 10rem;
     align-items: center;
     flex-direction: column;
