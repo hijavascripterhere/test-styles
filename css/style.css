@@ -45,6 +45,7 @@ body {
     margin: 5px;
     /*box-shadow: inset 0 -8px 5px -6px white;*/
     letter-spacing: 5px;
+    cursor: pointer;
 }
 
 .nav-button:hover {
@@ -78,6 +79,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: xx-large;
+    cursor: pointer;
 }
 
 .clicker p {
@@ -165,6 +167,7 @@ body {
     height: min-content;
     padding: 0px;
     transition: all 0.4s;
+    cursor: pointer;
 }
 
 .addimg:hover {
@@ -209,6 +212,7 @@ body {
 
 .clickup {
     margin: 10px;
+    cursor: pointer;
 }
 
 .wipeupgrades {
@@ -219,6 +223,7 @@ body {
     box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .tokens {
@@ -232,6 +237,7 @@ body {
     box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;
     padding-left: 10px;
     padding-right: 10px;
+    cursor: pointer;
 }
 
 .buttonline {
@@ -289,6 +295,7 @@ body {
     height: min-content;
     padding: 0px;
     transition: all 0.4s;
+    cursor: pointer;
 }
 
 .addimg1:hover {
