@@ -76,7 +76,7 @@ var versiontext = document.getElementById("versiontext")
 
 const CURRENT_VERSION = "v1.0.0";
 
-versiontext.innerHTML = `newest version: ${CURRENT_VERSION}`;
+versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
 
 const button = document.getElementById("button")
 var coins = document.getElementById("coins")
