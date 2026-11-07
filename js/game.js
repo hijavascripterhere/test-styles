@@ -379,6 +379,7 @@ document.getElementById("logout-button").onclick = async function () {
     let result = confirm("do you wish to log out?")
 
     if (result) {
+        localStorage.clear()
         await uploadSave();
         await logout();
     } else {
