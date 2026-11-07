@@ -86,19 +86,3 @@ export {
     setDoc,
     serverTimestamp
 };
-
-document.getElementById("forgotPassword").addEventListener("click", async () => {
-    const email = document.getElementById("login-email").value;
-
-    if (!email) {
-        alert("Enter your email first!");
-        return;
-    }
-
-    try {
-        await resetPassword(email);
-        alert("Password reset email sent!");
-    } catch {
-        alert("Failed to send reset email.");
-    }
-});
