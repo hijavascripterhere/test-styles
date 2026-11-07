@@ -223,7 +223,7 @@ function click() {
 
 function aclick() {
     if (!gameReady) return;
-    stats.coins += roundn(stats.acps)  * roundn(((stats.cbstok/100)+1))
+    stats.coins += roundn(stats.acps) * roundn(((stats.cbstok / 100) + 1))
     stats.tokens += roundn(stats.autotokensperclick)
 }
 
@@ -370,8 +370,14 @@ document.getElementById("login-button").onclick = async function () {
 
 // Logout
 document.getElementById("logout-button").onclick = async function () {
-    await uploadSave();
-    await logout();
+    let result = confirm("do you wish to log out?")
+
+    if (result) {
+        await uploadSave();
+        await logout();
+    } else {
+        console.log("user canceled")
+    }
 };
 
 onAuthStateChanged(auth, async function (user) {
@@ -379,21 +385,21 @@ onAuthStateChanged(auth, async function (user) {
     gameReady = false;
 
     if (user) {
-    authContainer.hidden = true;
-    accountContainer.hidden = true;
+        authContainer.hidden = true;
+        accountContainer.hidden = true;
 
-    await loadGame(user);
+        await loadGame(user);
 
-    document.getElementById("auth-overlay").style.display = "none";
+        document.getElementById("auth-overlay").style.display = "none";
 
-} else {
-    authContainer.hidden = false;
-    accountContainer.hidden = true;
+    } else {
+        authContainer.hidden = false;
+        accountContainer.hidden = true;
 
-    document.getElementById("auth-overlay").style.display = "flex";
+        document.getElementById("auth-overlay").style.display = "flex";
 
-    console.log("Not logged in");
-}
+        console.log("Not logged in");
+    }
 });
 
 setInterval(function () {
