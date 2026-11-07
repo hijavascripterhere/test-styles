@@ -368,6 +368,9 @@ document.getElementById("login-button").onclick = async function () {
     try {
         await login(email, password);
         authMessage.textContent = "Logged in!";
+        setTimeout(() => {
+            authMessage.textContent = "";
+        }, 1000);
     } catch (error) {
         authMessage.textContent = error.message;
         console.error(error);
