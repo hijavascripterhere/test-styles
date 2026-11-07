@@ -94,7 +94,13 @@ var cbsatok = document.getElementById("cbsatok")
 var cbstok = document.getElementById("cbstok")
 
 function abbreviate(num) {
-    if (num >= 1e15) return (num / 1e15).toFixed(1) + "Q";
+    if (num >= 1e33) return (num / 1e30).toFixed(1) + "D";
+    if (num >= 1e30) return (num / 1e30).toFixed(1) + "Nn";
+    if (num >= 1e27) return (num / 1e27).toFixed(1) + "Sp";
+    if (num >= 1e24) return (num / 1e24).toFixed(1) + "Sp";
+    if (num >= 1e21) return (num / 1e21).toFixed(1) + "Sx";
+    if (num >= 1e18) return (num / 1e18).toFixed(1) + "Qi";
+    if (num >= 1e15) return (num / 1e15).toFixed(1) + "Qd";
     if (num >= 1e12) return (num / 1e12).toFixed(1) + "T";
     if (num >= 1e9) return (num / 1e9).toFixed(1) + "B";
     if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
