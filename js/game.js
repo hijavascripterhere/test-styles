@@ -1,6 +1,8 @@
 import {
     auth,
+    backupAuth,
     db,
+    backupDB,
     register,
     login,
     logout,
@@ -118,47 +120,219 @@ let currentUser = null;
 let gameReady = false;
 let saveDirty = false;
 
+let usingBackup = false;
+let savePromise = null;
+
 function savegame() {
     saveDirty = true;
 }
 
-async function uploadSave() {
-    if (!currentUser || !saveDirty || !gameReady) return;
+async function uploadSave(force = false) {
+    if (!currentUser || !gameReady || (!saveDirty && !force)) return;
+
+    // Prevent simultaneous uploads
+    if (savePromise) {
+        await savePromise;
+
+        if (saveDirty || force) {
+            return uploadSave(force);
+        }
+
+        return;
+    }
 
     saveDirty = false;
 
-    // Remove HTML elements from upgrades before saving
-    let cleanUpgrades = {};
+    const saveData = {
+        stats: { ...stats },
 
-    for (let upgrade in upgrades) {
-        cleanUpgrades[upgrade] = {
-            cost: upgrades[upgrade].cost,
-            available: upgrades[upgrade].available
-        };
-    }
+        upgrades: Object.fromEntries(
+            Object.entries(upgrades).map(([key, value]) => [
+                key,
+                {
+                    cost: value.cost,
+                    available: value.available
+                }
+            ])
+        ),
+
+        lastSaved: serverTimestamp(),
+        schemaVersion: 1
+    };
+
+    const primaryRef = doc(db, "players", currentUser.uid);
+
+    const backupUid = backupAuth.currentUser?.uid;
+
+    const backupRef = backupUid
+        ? doc(backupDB, "players", backupUid)
+        : null;
+
+    const request = (async () => {
+        try {
+            // Try primary database first
+            if (!usingBackup) {
+                await setDoc(primaryRef, saveData);
+
+                console.log("Saved to primary database!");
+                return;
+            }
+
+            // We're currently using the backup.
+            // Try restoring the primary database.
+            try {
+                await setDoc(primaryRef, saveData);
+
+                usingBackup = false;
+
+                console.log("Primary database recovered!");
+                console.log("Switched back to primary!");
+                return;
+
+            } catch (error) {
+                console.warn("Primary still unavailable:", error);
+            }
+
+            // Save to backup if primary failed
+            if (!backupRef) {
+                throw new Error("Backup authentication unavailable!");
+            }
+
+            await setDoc(backupRef, saveData);
+
+            console.log("Saved to backup database!");
+
+        } catch (error) {
+
+            // Primary failed, attempt backup
+            if (!usingBackup && backupRef) {
+                try {
+                    await setDoc(backupRef, saveData);
+
+                    usingBackup = true;
+
+                    console.log("Primary failed!");
+                    console.log("Switched to backup database!");
+
+                    return;
+
+                } catch (backupError) {
+                    console.error("Backup also failed:", backupError);
+                }
+            } else {
+                console.error("Save failed:", error);
+            }
+
+            // Keep changes marked for another attempt
+            saveDirty = true;
+        }
+    })();
+
+    savePromise = request;
 
     try {
-        await setDoc(doc(db, "players", currentUser.uid), {
-            stats: stats,
-            upgrades: cleanUpgrades,
-            lastSaved: serverTimestamp(),
-            schemaVersion: 1
-        });
-
-        console.log("Game saved to cloud!");
-    } catch (error) {
-        saveDirty = true;
-        console.error("Save failed:", error);
+        await request;
+    } finally {
+        savePromise = null;
     }
 }
 
 async function loadGame(user) {
     try {
-        const saveRef = doc(db, "players", user.uid);
-        const save = await getDoc(saveRef);
+        const backupUid = backupAuth.currentUser?.uid;
 
-        if (save.exists()) {
-            const data = save.data();
+        let primarySave = null;
+        let backupSave = null;
+
+        let primaryReadOk = false;
+        let backupReadOk = !backupUid;
+
+        // Read primary
+        try {
+            primarySave = await getDoc(
+                doc(db, "players", user.uid)
+            );
+
+            primaryReadOk = true;
+
+        } catch (error) {
+            console.warn("Primary unavailable:", error);
+        }
+
+        // Read backup
+        if (backupUid) {
+            try {
+                backupSave = await getDoc(
+                    doc(backupDB, "players", backupUid)
+                );
+
+                backupReadOk = true;
+
+            } catch (error) {
+                console.warn("Backup unavailable:", error);
+            }
+        }
+
+        // Don't accidentally overwrite an unreadable save
+        if (!primaryReadOk && !backupReadOk) {
+            throw new Error("Both databases are unavailable!");
+        }
+
+        if (
+            primaryReadOk &&
+            !primarySave.exists() &&
+            backupUid &&
+            !backupReadOk
+        ) {
+            throw new Error("Couldn't check backup save!");
+        }
+
+        // Compare save timestamps
+        function getSaveTime(save) {
+            if (!save?.exists()) return -1;
+
+            return save.data().lastSaved?.toMillis() || 0;
+        }
+
+        let selectedSave = null;
+
+        if (
+            backupSave?.exists() &&
+            (
+                !primarySave?.exists() ||
+                getSaveTime(backupSave) > getSaveTime(primarySave)
+            )
+        ) {
+            selectedSave = backupSave;
+            usingBackup = true;
+
+            console.log("Loaded newest save from backup!");
+
+        } else if (primarySave?.exists()) {
+
+            selectedSave = primarySave;
+            usingBackup = false;
+
+            console.log("Loaded newest save from primary!");
+
+        } else if (backupSave?.exists()) {
+
+            selectedSave = backupSave;
+            usingBackup = true;
+
+            console.log("Loaded backup save!");
+
+        } else {
+
+            usingBackup = !primaryReadOk;
+            saveDirty = true;
+
+            console.log("New player!");
+        }
+
+        // Apply save
+        if (selectedSave) {
+            const data = selectedSave.data();
 
             stats = {
                 ...stats,
@@ -174,23 +348,26 @@ async function loadGame(user) {
                         data.upgrades[upgrade].available;
                 }
             }
-            document.getElementById("username").innerText = `User: ${user.email}`;
-            console.log("Save loaded!");
-        } else {
-            console.log("New player! Creating save...");
-            saveDirty = true;
         }
 
+        document.getElementById("username").innerText =
+            `User: ${user.email}`;
+
         gameReady = true;
+
         updatetext();
 
-        // Create the first save for a new player
-        await uploadSave();
+        if (saveDirty) {
+            await uploadSave();
+        }
 
     } catch (error) {
         gameReady = false;
+
         console.error("Couldn't load save:", error);
-        authMessage.textContent = "Couldn't load your save. Please try again.";
+
+        authMessage.textContent =
+            "Couldn't load your save. Please try again.";
     }
 }
 
@@ -383,7 +560,7 @@ document.getElementById("logout-button").onclick = async function () {
 
     if (result) {
         localStorage.clear()
-        await uploadSave();
+        await uploadSave(true);
         await logout();
     } else {
         console.log("user canceled")
