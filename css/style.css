@@ -26,8 +26,8 @@ body {
     background-color: black;
     /*writing-mode: sideways-lr;*/
     letter-spacing: 5px;
-    padding-top: 5px;
-    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     z-index: 11;
 }
 
