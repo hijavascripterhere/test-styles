@@ -23,16 +23,6 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-export async function resetPassword(email) {
-    try {
-        await sendPasswordResetEmail(auth, email);
-        return true;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
-
 // Your Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCGC8x0uwp58dvrE1hbf5WL8H7FDn2GqwI",
