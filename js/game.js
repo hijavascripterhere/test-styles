@@ -75,7 +75,7 @@ upgrades.cbsup2.element = document.getElementById("cbsup2");
 
 var versiontext = document.getElementById("versiontext")
 
-const CURRENT_VERSION = "v1.0.1";
+const CURRENT_VERSION = "v1.0.2";
 
 versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
 
