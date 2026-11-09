@@ -230,8 +230,8 @@ async function uploadSave() {
             username: stats.username || "Player",
             coins: stats.coins,
             UT: stats.tokens,
-            coinsperclick: stats.coinsperclick * ((stats.cpstok / 10)) + 1,
-            autoclicker: stats.acps,
+            coinsperclick: stats.coinsperclick * (stats.cpstok / 10) + 1,
+            autoclicker: stats.acps * (stats.cbstok / 100) + 1,
 
             // Autoclicker runs every 500ms
             cps: stats.autoclickerunl
