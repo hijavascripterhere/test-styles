@@ -19,9 +19,9 @@ import {
 
 var versiontext = document.getElementById("versiontext")
 
-const CURRENT_VERSION = "v1.0.4";
+const CURRENT_VERSION = "v1.0.5";
 
-versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
+versiontext.innerHTML = `current version: ${stats.currenversion}`;
 
 const authContainer = document.getElementById("auth-container");
 const accountContainer = document.getElementById("account-container");
@@ -312,13 +312,13 @@ function updatetext() {
             upgrades[upgrade].element.style.color = "gray";
         }
     }
-    coins.innerText = `${abbreviate(roundn(stats.coins))}$`;
-    currentcoins.innerHTML = `coins: ${abbreviate(roundn(stats.coins))}$`
+    coins.innerText = `${abbreviate(roundn(stats.coins))}`;
+    currentcoins.innerHTML = `coins: ${abbreviate(roundn(stats.coins))}`
     coinsperclick.innerHTML = `coins per click: ${abbreviate(roundn(stats.coinsperclick * ((stats.cpstok / 10)) + 1))}`
     tokens.innerHTML = `UT: ${abbreviate(roundn(stats.tokens))}`
     cpstok.innerHTML = `Clicker - ${abbreviate(roundn(stats.cpstok))}`
     tokenperclick.innerHTML = `UT per click: ${abbreviate(roundn(stats.tokensperclick))}`
-    ptokens.innerHTML = `UT cost: ${abbreviate(roundn(stats.UTcost))}$`
+    ptokens.innerHTML = `UT cost: ${abbreviate(roundn(stats.UTcost))}`
     cbstok.innerHTML = `autoclicker - ${abbreviate(roundn(stats.cbstok))}`
     user.innerHTML = `User: ${stats.username}`
     savegame()
@@ -331,14 +331,14 @@ function priceinc(num) {
 
 function click() {
     if (!gameReady) return;
-    stats.coins += roundn(stats.coinsperclick) * roundn(((stats.cpstok / 10) + 1))
-    stats.tokens += roundn(stats.tokensperclick)
+    stats.coins += roundn(stats.coinsperclick * (stats.cpstok / 10) + 1)
+    stats.tokens += roundn(stats.tokensperclick * (stats.cpstok / 100) + 1)
 }
 
 function aclick() {
     if (!gameReady) return;
-    stats.coins += roundn(stats.acps) * roundn(((stats.cbstok / 100) + 1))
-    stats.tokens += roundn(stats.autotokensperclick)
+    stats.coins += roundn(stats.acps * (stats.cbstok / 100) + 1)
+    stats.tokens += roundn(stats.autotokensperclick * (stats.cbstok / 100) + 1)
 }
 
 /* update text on start of website */
@@ -365,7 +365,7 @@ setInterval(function () {
     var newcc = stats.coins
     var upcc = newcc - cc
 
-    cps.innerHTML = `coins per second: ${abbreviate(roundn(upcc))}$`
+    cps.innerHTML = `coins per second: ${abbreviate(roundn(upcc))}`
 
     cc = newcc
 }, 1000)

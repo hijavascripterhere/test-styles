@@ -4,12 +4,19 @@
     user-select: none;
 }
 
+@font-face {
+    font-family: "arcadeclassic";
+    src: url("../fonts/ARCADECLASSIC.TTF") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     display: grid;
     width: 100%;
     height: 100vh;
     background-color: black;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: arcadeclassic;
     grid-template-rows: auto 1fr auto;
 }
 
