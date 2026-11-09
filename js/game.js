@@ -17,6 +17,12 @@ import {
     getDocs
 } from "./firebase.js";
 
+var versiontext = document.getElementById("versiontext")
+
+const CURRENT_VERSION = "v1.0.4";
+
+versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
+
 const authContainer = document.getElementById("auth-container");
 const accountContainer = document.getElementById("account-container");
 
@@ -89,13 +95,6 @@ upgrades.cbsup1.element = document.getElementById("cbsup1");
 upgrades.cbsup2.element = document.getElementById("cbsup2");
 upgrades.cbsup3.element = document.getElementById("cbsup3");
 upgrades.cbsup4.element = document.getElementById("cbsup4");
-
-
-var versiontext = document.getElementById("versiontext")
-
-const CURRENT_VERSION = "v1.0.4";
-
-versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
 
 const button = document.getElementById("button")
 var coins = document.getElementById("coins")
