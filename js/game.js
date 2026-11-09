@@ -66,6 +66,14 @@ let upgrades = {
     cbsup2: {
         cost: 30,
         available: true,
+    },
+    cbsup3: {
+        cost: 35,
+        available: true,
+    },
+    cbsup4: {
+        cost: 45,
+        available: true,
     }
 }
 
@@ -79,9 +87,10 @@ upgrades.cpsup4.element = document.getElementById("cpsup4");
 upgrades.cbsup1.element = document.getElementById("cbsup1");
 upgrades.cbsup2.element = document.getElementById("cbsup2");
 
+
 var versiontext = document.getElementById("versiontext")
 
-const CURRENT_VERSION = "v1.0.3";
+const CURRENT_VERSION = "v1.0.4";
 
 versiontext.innerHTML = `current version: ${CURRENT_VERSION}`;
 
@@ -446,8 +455,26 @@ cbsup1.onclick = function () {
 cbsup2.onclick = function () {
     if (!gameReady) return;
     if (stats.cbstok >= upgrades["cbsup2"].cost && upgrades["cbsup2"].available) {
-        stats.autotokensperclick += roundn(0.01)
+        roundn(stats.autotokensperclick += 0.01)
         upgrades["cbsup2"].available = false
+        updatetext()
+    }
+}
+
+cbsup3.onclick = function () {
+    if (!gameReady) return;
+    if (stats.cbstok >= upgrades["cbsup3"].cost && upgrades["cbsup3"].available) {
+        stats.acps += roundn(2)
+        upgrades["cbsu3"].available = false
+        updatetext()
+    }
+}
+
+cbsup3.onclick = function () {
+    if (!gameReady) return;
+    if (stats.cbstok >= upgrades["cbsup3"].cost && upgrades["cbsup3"].available) {
+        roundn(stats.acps *= 3)
+        upgrades["cbsu3"].available = false
         updatetext()
     }
 }
