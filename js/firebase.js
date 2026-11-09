@@ -30,7 +30,6 @@ import {
 
 // Your Firebase configuration
 
-/*
 const firebaseConfig = {
     apiKey: "AIzaSyCGC8x0uwp58dvrE1hbf5WL8H7FDn2GqwI",
     authDomain: "ccgameo.firebaseapp.com",
@@ -40,8 +39,8 @@ const firebaseConfig = {
     appId: "1:127950924798:web:eee4d528d0582b484aaeaf",
     measurementId: "G-2E791HH9DL"
 };
-*/
 
+/*
 const firebaseConfig = {
     apiKey: "AIzaSyDgbwG110Xep88xyx06wfiAFLsnIb42000",
     authDomain: "backup-72b1c.firebaseapp.com",
@@ -51,6 +50,7 @@ const firebaseConfig = {
     appId: "1:360487175293:web:bd0c1d1356c2b697689d14",
     measurementId: "G-D6HQT10RH3"
 };
+*/
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
