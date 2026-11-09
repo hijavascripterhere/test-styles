@@ -86,6 +86,8 @@ upgrades.cpsup4.element = document.getElementById("cpsup4");
 /* autoclicker upgrades */
 upgrades.cbsup1.element = document.getElementById("cbsup1");
 upgrades.cbsup2.element = document.getElementById("cbsup2");
+upgrades.cbsup3.element = document.getElementById("cbsup3");
+upgrades.cbsup4.element = document.getElementById("cbsup4");
 
 
 var versiontext = document.getElementById("versiontext")
