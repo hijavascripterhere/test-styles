@@ -54,7 +54,6 @@ body {
     width: calc-size(max-content, size + 20px);
     border-bottom: 0px solid white;
     height: calc(2rem + 2px);
-    letter-spacing: 0px;
 }
 
 .navbar {
