@@ -467,16 +467,16 @@ cbsup3.onclick = function () {
     if (!gameReady) return;
     if (stats.cbstok >= upgrades["cbsup3"].cost && upgrades["cbsup3"].available) {
         stats.acps += roundn(2)
-        upgrades["cbsu3"].available = false
+        upgrades["cbsup3"].available = false
         updatetext()
     }
 }
 
-cbsup3.onclick = function () {
+cbsup4.onclick = function () {
     if (!gameReady) return;
-    if (stats.cbstok >= upgrades["cbsup3"].cost && upgrades["cbsup3"].available) {
+    if (stats.cbstok >= upgrades["cbsup4"].cost && upgrades["cbsup4"].available) {
         roundn(stats.acps *= 3)
-        upgrades["cbsu3"].available = false
+        upgrades["cbsup4"].available = false
         updatetext()
     }
 }
