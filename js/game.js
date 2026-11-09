@@ -17,12 +17,6 @@ import {
     getDocs
 } from "./firebase.js";
 
-var versiontext = document.getElementById("versiontext")
-
-const CURRENT_VERSION = "v1.0.5";
-
-versiontext.innerHTML = `current version: ${stats.currenversion}`;
-
 const authContainer = document.getElementById("auth-container");
 const accountContainer = document.getElementById("account-container");
 
@@ -83,6 +77,12 @@ let upgrades = {
         available: true,
     }
 }
+
+var versiontext = document.getElementById("versiontext")
+
+const CURRENT_VERSION = "v1.0.5";
+
+versiontext.innerHTML = `current version: ${stats.currenversion}`;
 
 /* clicker upgrades */
 upgrades.cpsup1.element = document.getElementById("cpsup1");
