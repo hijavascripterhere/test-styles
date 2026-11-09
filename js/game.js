@@ -40,6 +40,7 @@ let stats = {
     cbstok: 0,
     autotokensperclick: 0,
     username: "",
+    currenversion: CURRENT_VERSION,
 };
 
 let upgrades = {
