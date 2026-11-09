@@ -27,6 +27,8 @@ document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
 
+const CURRENT_VERSION = "v1.0.5";
+
 let stats = {
     coins: 0,
     coinsperclick: 0.5,
@@ -79,8 +81,6 @@ let upgrades = {
 }
 
 var versiontext = document.getElementById("versiontext")
-
-const CURRENT_VERSION = "v1.0.5";
 
 versiontext.innerHTML = `current version: ${stats.currenversion}`;
 
