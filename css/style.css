@@ -360,13 +360,12 @@ body {
     display: flex;
     width: max-content;
     height: max-content;
-    max-width: 15rem;
+    max-width: 11rem;
     padding: 25px;
     flex-direction: column;
 
-    background: #171717;
-    border: 1px solid white;
-    border-radius: 10px;
+    box-shadow: inset 2px 0px 0px rgb(42,42,42), inset -2px 0px 0px rgb(42,42,42), inset 0px -3px 0px rgb(42,42,42), inset 0px 3px 0px gray;
+    background-color: rgb(62, 62, 62);
 
     color: white;
     text-align: center;
@@ -382,13 +381,19 @@ body {
 }
 
 #auth-container button {
+    font-family: arcadeclassic, sans-serif;
+    color: white;
     padding: 0px;
     cursor: pointer;
+    box-shadow: inset 2px 0px 0px rgb(70,70,70), inset -2px 0px 0px rgb(70,70,70), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70,70,70);
+    background-color: gray;
+    border: none;
+    border-style: none;
 }
 
 .row {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: auto;
     height: 2rem;
     gap: 5px;
     width: 100%;
@@ -438,8 +443,8 @@ body {
     display: none;
     position: absolute;
     top: calc(100% + 10px);
-    background-color: #222;
-    border-radius: 10px;
+    box-shadow: inset 2px 0px 0px rgb(42,42,42), inset -2px 0px 0px rgb(42,42,42), inset 0px -3px 0px rgb(42,42,42), inset 0px 3px 0px gray;
+    background-color: rgb(62, 62, 62);
     color: white;
     width: 10rem;
     height: min-content;
