@@ -24,7 +24,7 @@
             <p>UPDATE LOG</p>
         </div>
         <div class="nav-button" id="navgamble">
-            <p>GAMBLE</p>
+            <p>BLACK JACK</p>
         </div>
         <div class="menucontainer">
             <div class="nav-button" id="navmisc">
@@ -80,6 +80,12 @@
             </ul>
         </div>
         <div class="updatelogtab" id="updatelogtab">
+            <h1 style="margin: 10px;">update v1.0.6 date: 10/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- new ui</li>
+                <br>
+                <li>- added gambling</li>
+            </ul>
             <h1 style="margin: 10px;">update v1.0.5 date: 9/11/2026</h1>
             <ul style="margin: 10px;">
                 <li>- new font</li>
@@ -233,6 +239,12 @@
             </div>
         </div>
         <div class="gambletab" id="gambletab">
+            <div class="bidoverlay" id="bidoverlay">
+                <div class="bidcontainer">
+                    <input type="number" placeholder="bid" id="bidamount" required>
+                    <div class="bidbtn" id="bidbtn">bid</div>
+                </div>
+            </div>
             <h1>BLACK JACK</h1>
             <div class="gamecontainer">
                 <div class="contain">
@@ -240,29 +252,41 @@
                         <div class="bets" style="left: 0;" id="Balance">
                             <p>Balance:<br>100</p>
                         </div>
-                        <div class="bets" style="right: 0;">
+                        <div class="bets" style="right: 0;" id="bet">
                             <p>Bet:<br>100</p>
                         </div>
                     </div>
                     <div class="mainnumbers">
                         <div class="hands">
-                            <p></p>
+                            <p class="hand">dealers hand</p>
+                            <p style="font-size: 6rem;" id="dhand">12 | 6</p>
+
+                            <p class="hand">your hand</p>
+                            <p style="font-size: 6rem;" id="yhand">12 | 6</p>
                         </div>
                         <div class="btn-row">
-                            <div class="game-btn">
+                            <div class="game-btn" id="hit">
                                 <p>hit</p>
                             </div>
-                            <div class="game-btn">
+                            <div class="game-btn" id="stand">
                                 <p>stand</p>
                             </div>
-                            <div class="game-btn">
+                            <!--
+                            <div class="game-btn" id="dd">
                                 <p>double down</p>
                             </div>
-                            <div class="game-btn">
+                            <div class="game-btn" id="split">
                                 <p>split</p>
                             </div>
-                            <div class="game-btn">
-                                <p>bet</p>
+                            -->
+                            <div class="game-btn" id="bid">
+                                <p>bid</p>
+                            </div>
+                            <div class="game-btn" id="start">
+                                <p>start</p>
+                            </div>
+                            <div class="game-btn" id="restart">
+                                <p>restart</p>
                             </div>
                         </div>
                     </div>
@@ -285,6 +309,7 @@
     <script src="./js/nav.js"></script>
     <script src="./js/tooltip.js"></script>
     <script type="module" src="./js/game.js"></script>
+    <script type="module" src="./js/blackjack.js"></script>
 </body>
 
 </html>

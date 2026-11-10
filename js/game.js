@@ -17,6 +17,11 @@ import {
     getDocs
 } from "./firebase.js";
 
+import {
+    bet,
+    bidamt
+} from "./blackjack.js"
+
 const authContainer = document.getElementById("auth-container");
 const accountContainer = document.getElementById("account-container");
 
@@ -27,9 +32,9 @@ document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
 
-const CURRENT_VERSION = "v1.0.5";
+const CURRENT_VERSION = "v1.0.6";
 
-let stats = {
+export let stats = {
     coins: 0,
     coinsperclick: 0.5,
     tokens: 0,
@@ -305,7 +310,7 @@ async function loadGame(user) {
 
 
 /* update text function */
-function updatetext() {
+export function updatetext() {
     if (!gameReady) return;
     for (let upgrade in upgrades) {
         if (upgrades[upgrade].available) {
@@ -325,6 +330,7 @@ function updatetext() {
     cbstok.innerHTML = `autoclicker - ${abbreviate(roundn(stats.cbstok))}`
     user.innerHTML = `User: ${stats.username}`
     balance.innerHTML = `Balance:<br>${abbreviate(roundn(stats.coins))}`
+    bet.innerHTML = `bet:<br>${abbreviate(roundn(bidamt))}`
     savegame()
 }
 

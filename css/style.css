@@ -536,3 +536,86 @@ body {
     box-shadow: inset 0px 3px 0px rgb(42, 42, 42);
     background-color: rgb(60, 60, 60);
 }
+
+.hands {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+    box-shadow: inset 2px 0px 0px rgb(42, 42, 42), inset -2px 0px 0px rgb(42, 42, 42), inset 0px -3px 0px rgb(42, 42, 42), inset 0px 3px 0px rgb(103, 103, 103);
+    background-color: rgb(62, 62, 62);
+    font-size: large;
+    margin: 0px 10px;
+    height: min-content;
+    flex-shrink: 0;
+    margin: 10px;
+}
+
+#yhand {
+    box-shadow: inset 2px 0px 0px rgb(42, 42, 42), inset -2px 0px 0px rgb(42, 42, 42), inset 0px -3px 0px rgb(42, 42, 42), inset 0px 3px 0px rgb(103, 103, 103);
+    background-color: rgb(62, 62, 62);
+    padding: 0px 10px;
+}
+
+#dhand {
+    box-shadow: inset 2px 0px 0px rgb(42, 42, 42), inset -2px 0px 0px rgb(42, 42, 42), inset 0px -3px 0px rgb(42, 42, 42), inset 0px 3px 0px rgb(103, 103, 103);
+    background-color: rgb(62, 62, 62);
+    padding: 0px 10px;
+}
+
+.bidoverlay {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.333);
+    backdrop-filter: blur(16px);
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.bidcontainer {
+    display: flex;
+    box-shadow: inset 2px 0px 0px rgb(42, 42, 42), inset -2px 0px 0px rgb(42, 42, 42), inset 0px -3px 0px rgb(42, 42, 42), inset 0px 3px 0px rgb(103, 103, 103);
+    background-color: rgb(62, 62, 62);
+    width: 15rem;
+    height: 10rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.bidcontainer input {
+    box-sizing: border-box;
+    height: 2rem;
+    width: calc(100% - 20px);
+    text-align: center;
+    display: flex;
+}
+
+.bidbtn {
+    display: flex;
+    box-sizing: border-box;
+    width: calc(100% - 20px);
+    box-shadow: inset 2px 0px 0px rgb(70, 70, 70), inset -2px 0px 0px rgb(70, 70, 70), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70, 70, 70);
+    background-color: gray;
+    border: none;
+    border-style: none;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.bidbtn:hover {
+    box-shadow: inset 0px 3px 0px rgb(42, 42, 42);
+    background-color: rgb(60, 60, 60);
+}
