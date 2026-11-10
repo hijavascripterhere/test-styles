@@ -312,6 +312,7 @@ function updatetext() {
             upgrades[upgrade].element.style.color = "white";
         } else if (!upgrades[upgrade].available) {
             upgrades[upgrade].element.style.color = "rgb(60,60,60)";
+            upgrades[upgrade].element.style.pointerEvents = "none"
         }
     }
     coins.innerText = `${abbreviate(roundn(stats.coins))}`;
@@ -350,9 +351,13 @@ updatetext()
 registeruser.onclick = function () {
     var usr = prompt("enter your user")
     if (usr) {
-        stats.username = usr
-        updatetext()
-    } else {
+        if (usr.length <= 15) {
+            stats.username = usr
+            updatetext()
+        } else {
+            alert("character limit is 15")
+        }
+    } else if (!usr) {
         alert("please enter something")
     }
 }
