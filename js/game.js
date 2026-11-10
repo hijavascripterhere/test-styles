@@ -107,6 +107,8 @@ var cps = document.getElementById("cps")
 var user = document.getElementById("username")
 const registeruser = document.getElementById("registeruser")
 
+var balance = document.getElementById("Balance")
+
 var cpstok = document.getElementById("cpstok")
 var cpsatok = document.getElementById("cpsatok")
 
@@ -309,7 +311,7 @@ function updatetext() {
         if (upgrades[upgrade].available) {
             upgrades[upgrade].element.style.color = "white";
         } else if (!upgrades[upgrade].available) {
-            upgrades[upgrade].element.style.color = "gray";
+            upgrades[upgrade].element.style.color = "rgb(60,60,60)";
         }
     }
     coins.innerText = `${abbreviate(roundn(stats.coins))}`;
@@ -321,6 +323,7 @@ function updatetext() {
     ptokens.innerHTML = `UT cost: ${abbreviate(roundn(stats.UTcost))}`
     cbstok.innerHTML = `autoclicker - ${abbreviate(roundn(stats.cbstok))}`
     user.innerHTML = `User: ${stats.username}`
+    balance.innerHTML = `Balance:<br>${abbreviate(roundn(stats.coins))}`
     savegame()
 }
 
@@ -331,14 +334,14 @@ function priceinc(num) {
 
 function click() {
     if (!gameReady) return;
-    stats.coins += roundn(stats.coinsperclick * (stats.cpstok / 10) + 1)
-    stats.tokens += roundn(stats.tokensperclick * (stats.cpstok / 100) + 1)
+    stats.coins += stats.coinsperclick * (stats.cpstok / 10) || stats.coinsperclick
+    stats.tokens += stats.tokensperclick * (stats.cpstok / 100) || stats.tokensperclick
 }
 
 function aclick() {
     if (!gameReady) return;
-    stats.coins += roundn(stats.acps * (stats.cbstok / 100) + 1)
-    stats.tokens += roundn(stats.autotokensperclick * (stats.cbstok / 100) + 1)
+    stats.coins += stats.acps * (stats.cbstok / 100)
+    stats.tokens += stats.autotokensperclick * (stats.cbstok / 100)
 }
 
 /* update text on start of website */

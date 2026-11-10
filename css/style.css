@@ -24,18 +24,18 @@ body {
     display: flex;
     height: max-content;
     width: 100%;
-    border-top: 1px solid white;
     transition: all 0.4s;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     color: white;
-    background-color: black;
     /*writing-mode: sideways-lr;*/
     letter-spacing: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
     z-index: 11;
+    box-shadow: inset 0px 3px 0px gray;
+    background-color: rgb(62, 62, 62);
 }
 
 .nav-button {
@@ -44,34 +44,31 @@ body {
     align-items: center;
     color: white;
     font-size: x-large;
-    border-bottom: 3px solid white;
-    width: max-content;
     height: 2rem;
-    box-sizing: border-box;
-    transition: all 0.4s;
     margin: 5px;
     /*box-shadow: inset 0 -8px 5px -6px white;*/
-    letter-spacing: 5px;
+    /*letter-spacing: 5px;*/
     cursor: pointer;
+    padding: 0px 10px;
+    width: max-content;
+    box-shadow: inset 2px 0px 0px rgb(70,70,70), inset -2px 0px 0px rgb(70,70,70), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70,70,70);
+    background-color: gray;
 }
 
 .nav-button:hover {
-    background-color: white;
-    color: black;
-    width: calc-size(max-content, size + 20px);
-    border-bottom: 0px solid white;
-    height: calc(2rem + 2px);
+    box-shadow: inset 0px 3px 0px rgb(42,42,42);
+    background-color: rgb(60,60,60);
 }
 
 .navbar {
     display: flex;
-    border-bottom: 1px solid white;
     align-items: center;
     justify-content: space-evenly;
     height: 3rem;
     flex-direction: row;
     transition: all 0.4s;
-    background-color: black;
+    box-shadow: inset 0px -3px 0px rgb(42,42,42);
+    background-color: rgb(62, 62, 62);
     width: 100%;
     z-index: 10;
 }
@@ -110,6 +107,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.upgradetab h1 {
+    display: flex;
+    box-shadow: inset 2px 0px 0px rgb(70,70,70), inset -2px 0px 0px rgb(70,70,70), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70,70,70);
+    background-color: gray;
+    flex-direction: row;
+    width: 20rem;
+    justify-content: center;
 }
 
 .upgrade1 {
@@ -156,14 +162,14 @@ body {
     display: flex;
     width: calc(100% - 10);
     height: min-content;
-    background-color: red;
+    font-size: x-large;
     font-size: x-large;
     padding: 2px;
     justify-content: center;
     align-items: center;
-    border: 4px solid rgb(200, 0, 0);
     position: relative;
-    box-shadow: 0px 0px 10px red;
+    box-shadow: inset 2px 0px 0px rgb(42,42,42), inset -2px 0px 0px rgb(42,42,42), inset 0px -3px 0px rgb(42,42,42), inset 0px 3px 0px gray;
+    background-color: rgb(62, 62, 62);
 }
 
 .addimg {
@@ -177,7 +183,7 @@ body {
 }
 
 .addimg:hover {
-    background-color: rgb(200, 0, 0);
+    background-color: rgb(42,42,42);
 }
 
 #tooltip {
@@ -195,10 +201,9 @@ body {
 
 .upgrades {
     display: flex;
-    width: calc(100% - 2px);
-    background-color: black;
-    border: 1px solid white;
-    box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;
+    width: 100%;
+    box-shadow: inset 2px 0px 0px rgb(42,42,42), inset -2px 0px 0px rgb(42,42,42), inset 0px -3px 0px rgb(42,42,42), inset 0px 3px 0px gray;
+    background-color: rgb(62, 62, 62);
     font-size: x-large;
     align-items: center;
     flex-direction: column;
@@ -217,9 +222,40 @@ body {
 }
 
 .clickup {
+    display: flex;
     margin: 10px;
     cursor: pointer;
+    box-shadow: inset 2px 0px 0px rgb(70,70,70), inset -2px 0px 0px rgb(70,70,70), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70,70,70);
+    background-color: gray;
+    min-width: 6rem;
+    width: calc(100% - 20px);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
 }
+
+.clickup:hover {
+    box-shadow: inset 0px 2px 0px rgb(42,42,42);
+    background-color: rgb(60,60,60);
+}
+
+
+/*
+.clickup {
+    display: flex;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: inset 0px 2px 0px rgb(42,42,42);
+    background-color: rgb(60,60,60);
+    min-width: 6rem;
+    width: calc(100% - 20px);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+*/
 
 .wipeupgrades {
     display: flex;
@@ -239,11 +275,15 @@ body {
     align-items: center;
     justify-content: center;
     height: 2rem;
-    border: 1px solid white;
-    box-shadow: inset 0px 0px 5px white, 0px 0px 10px white;
-    padding-left: 10px;
-    padding-right: 10px;
+    box-shadow: inset 2px 0px 0px rgb(60,60,60), inset -2px 0px 0px rgb(60,60,60), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70,70,70);
+    background-color: gray;
+    padding: 0px 10px;
     cursor: pointer;
+    transition: all 0.4s;
+}
+
+.tokens:hover {
+    width: calc-size(max-content, size + 20px);
 }
 
 .buttonline {
@@ -277,7 +317,6 @@ body {
     align-items: center;
     border: 4px solid rgb(0, 100, 0);
     position: relative;
-    box-shadow: 0px 0px 10px green;
 }
 
 .upgrade2 {
@@ -292,20 +331,6 @@ body {
     margin: 10px;
     transition: all 0.4s ease-in-out;
     background-color: rgb(50, 50, 50);
-}
-
-.addimg1 {
-    position: absolute;
-    right: 10px;
-    width: min-content;
-    height: min-content;
-    padding: 0px;
-    transition: all 0.4s;
-    cursor: pointer;
-}
-
-.addimg1:hover {
-    background-color: rgb(0,100,0);
 }
 
 .updatelogtab {
@@ -440,4 +465,48 @@ body {
     justify-content: space-evenly;
     height: 3rem;
     align-items: center;
+}
+
+.gambletab {
+    display: none;
+    background-color: black;
+    color: #ffffff;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.gambletab h1 {
+    text-decoration: underline;
+}
+
+.gamecontainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #222;
+    width: 70%;
+    height: 60vh;
+}
+
+.bets {
+    display: flex;
+    background-color: #171717;
+    width: max-content;
+    font-size: x-large;
+    padding: 0px 10px;
+    transition: all 0.4s;
+    align-items: center;
+    min-width: 6rem;
+    position: absolute;
+}
+
+.status {
+    display: flex;
+    width: calc(100% - 20px);
+    margin: 10px 0;
+    background-color: #171717;
+    position: relative;
 }

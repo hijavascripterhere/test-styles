@@ -9,7 +9,7 @@ document.querySelectorAll("[data-tooltip]").forEach(element => {
 
     element.addEventListener("mousemove", (e) => {
         tooltip.style.left = e.clientX + 15 + "px";
-        tooltip.style.top = e.clientY + -10 + "px";
+        tooltip.style.top = e.clientY + 14 + "px";
     });
 
     element.addEventListener("mouseleave", () => {
