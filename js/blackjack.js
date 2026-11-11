@@ -27,6 +27,8 @@ const start = document.getElementById("start")
 
 const restart = document.getElementById("restart")
 
+const exitbtn = document.getElementById("closebtn")
+
 // reset hand
 dhand.innerText = `0 | 0`
 yhand.innerText = `0 | 0`
@@ -42,11 +44,18 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
 bid.addEventListener("click", () => {
     if (!isbidding && canbid) {
         bidoverlay.style.display = "flex"
         isbidding = true
+    }
+});
+
+exitbtn.addEventListener("click", () => {
+    if (isbidding && canbid) {
+        bidoverlay.style.display = "none"
+        isbidding = false
+        bidamount.value = ""
     }
 });
 
