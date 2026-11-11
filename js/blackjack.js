@@ -87,6 +87,8 @@ var yhand1 = 0
 var yhand2 = 0
 var yhand3 = 0
 
+var debounce = false
+
 start.addEventListener("click", async () => {
     if (!isbidding && !canbid && !alreadystarted && !isitplayersturn) {
         dhand1 = getRndInteger(1, 11)
@@ -106,6 +108,9 @@ start.addEventListener("click", async () => {
 });
 
 hit.addEventListener("click", () => {
+    if (debounce) {return}
+    debounce = true
+
     if (isitplayersturn && alreadystarted) {
         yhand.innerText = `${yhand1} | ${yhand2} | ${yhand3}`
         dhand.innerText = `${dhand1} | ${dhand2}`
@@ -143,9 +148,12 @@ hit.addEventListener("click", () => {
             yhand.innerText = `0 | 0`
         }, 2000)
     }
+    debounce = false
 });
 
 stand.addEventListener("click", () => {
+    if (debounce) {return}
+    debounce = true
     if (isitplayersturn && alreadystarted) {
         dhand.innerText = `${dhand1} | ${dhand2}`
         setTimeout(async () => {
@@ -183,4 +191,5 @@ stand.addEventListener("click", () => {
             yhand.innerText = `0 | 0`
         }, 2000)
     }
+    debounce = false
 });
