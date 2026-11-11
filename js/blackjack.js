@@ -44,10 +44,15 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+var tempbidamt = 0
+
+bidamount.innerText = tempbidamt
+
 bid.addEventListener("click", () => {
     if (!isbidding && canbid) {
         bidoverlay.style.display = "flex"
         isbidding = true
+        console.log("bidding")
     }
 });
 
@@ -55,20 +60,31 @@ exitbtn.addEventListener("click", () => {
     if (isbidding && canbid) {
         bidoverlay.style.display = "none"
         isbidding = false
-        bidamount.value = ""
+        tempbidamt = 0
+        bidamount.innerText = tempbidamt
+        console.log("ended bidding")
     }
 });
 
+document.querySelectorAll("[data-percentage]").forEach(Element => {
+    Element.addEventListener("click", () => {
+        if (stats.coins > 0) {
+            tempbidamt = stats.coins * Number(Element.dataset.percentage);
+            bidamount.innerText = abbreviate(roundn(tempbidamt))
+        }
+    });
+});
 
 bidbtn.addEventListener("click", () => {
-    if (stats.coins >= bidamount.value) {
-        bidamt += Math.abs(Number(bidamount.value))
+    if (isbidding && canbid && tempbidamt != 0) {
+        bidamt += Math.abs(Number(tempbidamt))
         bidoverlay.style.display = "none"
         isbidding = false
         canbid = false
+        console.log("bid set")
         updatetext()
     }
-})
+});
 
 var alreadystarted = false
 var isitplayersturn = false
@@ -117,7 +133,7 @@ start.addEventListener("click", async () => {
 });
 
 hit.addEventListener("click", async () => {
-    if (debounce) {return}
+    if (debounce) { return }
     debounce = true
 
     if (isitplayersturn && alreadystarted) {
@@ -140,7 +156,7 @@ hit.addEventListener("click", async () => {
             } else if (psum > dsum) {
                 stats.coins -= bidamt
                 await sleep(500)
-                alert(`you lost: ${bidamt}`)
+                alert(`you lost: ${abbreviate(roundn(bidamt))}`)
             }
             dhand1 = 0
             dhand2 = 0
@@ -152,6 +168,8 @@ hit.addEventListener("click", async () => {
             isitplayersturn = false
             canbid = true
             bidamt = 0
+            tempbidamt = 0
+            bidamount.innerText = tempbidamt
             updatetext()
             dhand.innerText = `0 | 0`
             yhand.innerText = `0 | 0`
@@ -162,7 +180,7 @@ hit.addEventListener("click", async () => {
 });
 
 stand.addEventListener("click", async () => {
-    if (debounce) {return}
+    if (debounce) { return }
     debounce = true
     if (isitplayersturn && alreadystarted) {
         dhand.innerText = `${dhand1} | ${dhand2}`
@@ -184,7 +202,7 @@ stand.addEventListener("click", async () => {
             } else if (psum > dsum) {
                 stats.coins -= bidamt
                 await sleep(500)
-                alert(`you lost: ${bidamt}`)
+                alert(`you lost: ${abbreviate(roundn(bidamt))}`)
             }
             dhand1 = 0
             dhand2 = 0
@@ -196,6 +214,8 @@ stand.addEventListener("click", async () => {
             isitplayersturn = false
             canbid = true
             bidamt = 0
+            tempbidamt = 0
+            bidamount.innerText = tempbidamt
             updatetext()
             dhand.innerText = `0 | 0`
             yhand.innerText = `0 | 0`

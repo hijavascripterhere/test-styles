@@ -240,20 +240,25 @@
         <div class="gambletab" id="gambletab">
             <div class="bidoverlay" id="bidoverlay">
                 <div class="bidcontainer">
-                    <input type="number" placeholder="bid" id="bidamount" required>
-                    <div class="btnrow" id="bidbtn">
-                        <div class="bidperc">
+                    <div id="bidamount">
+                        <p>0</p>
+                    </div>
+                    <div class="btnrow">
+                        <div class="bidperc" data-percentage="0.1">
                             <p>10%</p>
                         </div>
-                        <div class="bidperc">
+                        <div class="bidperc" data-percentage="0.25">
                             <p>25%</p>
                         </div>
-                        <div class="bidperc">
+                        <div class="bidperc" data-percentage="0.50">
                             <p>50%</p>
                         </div>
-                        <div class="bidperc">
+                        <div class="bidperc" data-percentage="1">
                             <p>100%</p>
                         </div>
+                    </div>
+                    <div class="bidbtn" id="bidbtn">
+                        <p>confirm bid?</p>
                     </div>
                     <div class="close-btn" id="closebtn">
                         <p>X</p>

@@ -594,12 +594,15 @@ body {
     position: relative;
 }
 
-.bidcontainer input {
-    box-sizing: border-box;
+#bidamount {
     height: 2rem;
     width: calc(100% - 20px);
     text-align: center;
     display: flex;
+    box-shadow: inset 2px 0px 0px rgb(70, 70, 70), inset -2px 0px 0px rgb(70, 70, 70), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70, 70, 70);
+    background-color: gray;
+    justify-content: center;
+    align-items: center;
 }
 
 .bidbtn {
@@ -667,4 +670,10 @@ body {
     padding: 0 10px;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.bidperc:hover {
+    box-shadow: inset 0px 3px 0px rgb(42, 42, 42);
+    background-color: rgb(60, 60, 60);
 }
