@@ -107,7 +107,7 @@ start.addEventListener("click", async () => {
     }
 });
 
-hit.addEventListener("click", () => {
+hit.addEventListener("click", async () => {
     if (debounce) {return}
     debounce = true
 
@@ -148,10 +148,11 @@ hit.addEventListener("click", () => {
             yhand.innerText = `0 | 0`
         }, 2000)
     }
+    await sleep(5500)
     debounce = false
 });
 
-stand.addEventListener("click", () => {
+stand.addEventListener("click", async () => {
     if (debounce) {return}
     debounce = true
     if (isitplayersturn && alreadystarted) {
@@ -191,5 +192,6 @@ stand.addEventListener("click", () => {
             yhand.innerText = `0 | 0`
         }, 2000)
     }
+    await sleep(5500)
     debounce = false
 });
