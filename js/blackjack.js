@@ -12,6 +12,8 @@ const dhand = document.getElementById("dhand")
 const yhand = document.getElementById("yhand")
 const hit = document.getElementById("hit")
 const stand = document.getElementById("stand")
+const dhandtot = document.getElementById("dhandtot")
+const yhandtot = document.getElementById("yhandtot")
 
 // const dd = document.getElementById("dd")
 // const split = document.getElementById("split")
@@ -112,6 +114,9 @@ var yhand1 = 0
 var yhand2 = 0
 var yhand3 = 0
 
+dhandtot.innerHTML = `dealers hand: total amount: ${dhand1 + dhand2}`
+yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2}`
+
 var debounce = false
 
 start.addEventListener("click", async () => {
@@ -126,7 +131,8 @@ start.addEventListener("click", async () => {
         yhand.innerText = `${yhand1} | ${yhand2}`
         alreadystarted = true
         isitplayersturn = true
-
+        dhandtot.innerHTML = `dealers hand: total amount: ${dhand1}`
+        yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2}`
     } else {
         alert("someting went wong: please bid first")
     }
@@ -139,8 +145,11 @@ hit.addEventListener("click", async () => {
     if (isitplayersturn && alreadystarted) {
         yhand.innerText = `${yhand1} | ${yhand2} | ${yhand3}`
         dhand.innerText = `${dhand1} | ${dhand2}`
+        dhandtot.innerHTML = `dealers hand: total amount: ${dhand1 + dhand2}`
+        yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2 + yhand3}`
         setTimeout(async () => {
             tdai(dhand1, dhand2, dhand3)
+            dhandtot.innerHTML = `dealers hand: total amount: ${dai(dhand1, dhand2, dhand3)}`
             await sleep(3000)
             var psum = Math.abs(21 - (yhand1 + yhand2 + yhand3))
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
@@ -173,6 +182,8 @@ hit.addEventListener("click", async () => {
             updatetext()
             dhand.innerText = `0 | 0`
             yhand.innerText = `0 | 0`
+            dhandtot.innerHTML = `dealers hand: total amount: ${dhand1 + dhand2}`
+            yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2 + yhand3}`
         }, 2000)
     }
     await sleep(5500)
@@ -182,10 +193,15 @@ hit.addEventListener("click", async () => {
 stand.addEventListener("click", async () => {
     if (debounce) { return }
     debounce = true
+
     if (isitplayersturn && alreadystarted) {
         dhand.innerText = `${dhand1} | ${dhand2}`
+        dhandtot.innerHTML = `dealers hand: total amount: ${dhand1 + dhand2}`
+        yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2}`
         setTimeout(async () => {
             tdai(dhand1, dhand2, dhand3)
+            dhandtot.innerHTML = `dealers hand: total amount: ${dai(dhand1, dhand2, dhand3)}`
+            yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2}`
             await sleep(3000)
             var psum = Math.abs(21 - (yhand1 + yhand2))
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
@@ -219,6 +235,8 @@ stand.addEventListener("click", async () => {
             updatetext()
             dhand.innerText = `0 | 0`
             yhand.innerText = `0 | 0`
+            dhandtot.innerHTML = `dealers hand: total amount: ${dai(dhand1, dhand2, dhand3)}`
+            yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2}`
         }, 2000)
     }
     await sleep(5500)
