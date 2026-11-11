@@ -519,7 +519,7 @@ body {
     justify-content: center;
     box-shadow: inset 2px 0px 0px rgb(42, 42, 42), inset -2px 0px 0px rgb(42, 42, 42), inset 0px -3px 0px rgb(42, 42, 42), inset 0px 3px 0px rgb(103, 103, 103);
     background-color: rgb(62, 62, 62);
-    height: 2rem;
+    padding: 5px;
     position: absolute;
     bottom: 10px;
     align-items: center;
@@ -533,7 +533,6 @@ body {
     box-shadow: inset 2px 0px 0px rgb(70, 70, 70), inset -2px 0px 0px rgb(70, 70, 70), inset 0px 2px 0px lightgray, inset 0px -2px 0px rgb(70, 70, 70);
     background-color: gray;
     font-size: large;
-    margin: 0px 10px;
     height: min-content;
     flex-shrink: 0;
     cursor: pointer;
@@ -668,6 +667,7 @@ body {
     padding: 5px;
     flex-direction: row;
     justify-content: center;
+    width: min-content;
 }
 
 .bidperc {

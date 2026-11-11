@@ -87,7 +87,7 @@ let upgrades = {
 
 var versiontext = document.getElementById("versiontext")
 
-versiontext.innerHTML = `current version: ${stats.currenversion}`;
+versiontext.innerHTML = `8bitter, current version: ${stats.currenversion}`;
 
 /* clicker upgrades */
 upgrades.cpsup1.element = document.getElementById("cpsup1");

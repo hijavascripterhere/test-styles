@@ -155,7 +155,7 @@ hit.addEventListener("click", async () => {
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
             if (psum < dsum) {
-                var winamt = bidamt * 2
+                var winamt = bidamt
                 stats.coins += winamt
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
@@ -207,7 +207,7 @@ stand.addEventListener("click", async () => {
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
             if (psum < dsum) {
-                var winamt = bidamt * 2
+                var winamt = bidamt
                 stats.coins += winamt
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
