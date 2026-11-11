@@ -118,12 +118,15 @@ hit.addEventListener("click", () => {
             if (psum < dsum) {
                 var winamt = bidamt * 2
                 stats.coins += winamt
+                await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
             } else if (psum == dsum) {
                 stats.coins += bidamt
+                await sleep(500)
                 alert(`a tie you get back your bid amount`)
             } else if (psum > dsum) {
                 stats.coins -= bidamt
+                await sleep(500)
                 alert(`you lost: ${bidamt}`)
             }
             dhand1 = 0
@@ -155,12 +158,15 @@ stand.addEventListener("click", () => {
             if (psum < dsum) {
                 var winamt = bidamt * 2
                 stats.coins += winamt
+                await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
             } else if (psum == dsum) {
                 stats.coins += bidamt
+                await sleep(500)
                 alert(`a tie you get back your bid amount`)
             } else if (psum > dsum) {
                 stats.coins -= bidamt
+                await sleep(500)
                 alert(`you lost: ${bidamt}`)
             }
             dhand1 = 0
