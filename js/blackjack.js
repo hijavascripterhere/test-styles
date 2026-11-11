@@ -125,6 +125,7 @@ hit.addEventListener("click", () => {
                 alert(`a tie you get back your bid amount`)
             } else if (psum > dsum) {
                 stats.coins -= bidamt
+                alert(`you lost: ${bidamt}`)
             }
             dhand1 = 0
             dhand2 = 0
@@ -161,6 +162,7 @@ stand.addEventListener("click", () => {
                 alert(`a tie you get back your bid amount`)
             } else if (psum > dsum) {
                 stats.coins -= bidamt
+                alert(`you lost: ${bidamt}`)
             }
             dhand1 = 0
             dhand2 = 0
