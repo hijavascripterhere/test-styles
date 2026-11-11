@@ -121,7 +121,6 @@ hit.addEventListener("click", () => {
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
             } else if (psum == dsum) {
-                stats.coins += bidamt
                 await sleep(500)
                 alert(`a tie you get back your bid amount`)
             } else if (psum > dsum) {
