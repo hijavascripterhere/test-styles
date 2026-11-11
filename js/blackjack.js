@@ -53,7 +53,6 @@ bid.addEventListener("click", () => {
 
 bidbtn.addEventListener("click", () => {
     if (stats.coins >= bidamount.value) {
-        stats.coins -= Math.abs(Number(bidamount.value))
         bidamt += Math.abs(Number(bidamount.value))
         bidoverlay.style.display = "none"
         isbidding = false
