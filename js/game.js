@@ -125,11 +125,11 @@ const leaderboardMessage = document.getElementById("leaderboard-message");
 
 let leaderboardCategory = "coins";
 
-function roundn(num) {
+export function roundn(num) {
     return Math.round(num * 100) / 100;
 }
 
-function abbreviate(num) {
+export function abbreviate(num) {
     if (num >= 1e33) return (num / 1e30).toFixed(1) + "D";
     if (num >= 1e30) return (num / 1e30).toFixed(1) + "Nn";
     if (num >= 1e27) return (num / 1e27).toFixed(1) + "Sp";

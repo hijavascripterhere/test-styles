@@ -1,6 +1,8 @@
 import {
     stats,
-    updatetext
+    updatetext,
+    roundn,
+    abbreviate
 } from "./game.js"
 
 export var bidamt = 0;
@@ -36,6 +38,9 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 
 bid.addEventListener("click", () => {
@@ -47,9 +52,9 @@ bid.addEventListener("click", () => {
 
 
 bidbtn.addEventListener("click", () => {
-    if (bidamount && stats.coins >= bidamount.value) {
-        stats.coins -= Number(bidamount.value)
-        bidamt += Number(bidamount.value)
+    if (stats.coins >= bidamount.value) {
+        stats.coins -= Math.abs(Number(bidamount.value))
+        bidamt += Math.abs(Number(bidamount.value))
         bidoverlay.style.display = "none"
         isbidding = false
         canbid = false
@@ -58,96 +63,118 @@ bidbtn.addEventListener("click", () => {
 })
 
 var alreadystarted = false
-var isitplayersturn = 0
-var isplayerstanding = false
-var isplayerhitting = false
-
+var isitplayersturn = false
 
 function dai(hand1, hand2, hand3) {
-    if (hand1, hand2 <= 17) {
+    if (hand1 + hand2 <= 17) {
+        return hand1 + hand2 + hand3
+    } else {
+        return hand1 + hand2
+    }
+}
+
+function tdai(hand1, hand2, hand3) {
+    if (hand1 + hand2 <= 17) {
         dhand.innerText = `${hand1} | ${hand2} | ${hand3}`
     } else {
         dhand.innerText = `${hand1} | ${hand2}`
     }
-
 }
 
-start.addEventListener("click", () => {
-    if (!isbidding && !canbid && !alreadystarted && isitplayersturn == 0) {
-        var dhand1 = getRndInteger(1, 11)
-        var dhand2 = getRndInteger(1, 11)
-        var dhand3 = getRndInteger(1, 11)
-        var yhand1 = getRndInteger(1, 11)
-        var yhand2 = getRndInteger(1, 11)
-        var yhand3 = getRndInteger(1, 11)
+var dhand1 = 0
+var dhand2 = 0
+var dhand3 = 0
+var yhand1 = 0
+var yhand2 = 0
+var yhand3 = 0
+
+start.addEventListener("click", async () => {
+    if (!isbidding && !canbid && !alreadystarted && !isitplayersturn) {
+        dhand1 = getRndInteger(1, 11)
+        dhand2 = getRndInteger(1, 11)
+        dhand3 = getRndInteger(1, 11)
+        yhand1 = getRndInteger(1, 11)
+        yhand2 = getRndInteger(1, 11)
+        yhand3 = getRndInteger(1, 11)
         dhand.innerText = `${dhand1} | #`
         yhand.innerText = `${yhand1} | ${yhand2}`
         alreadystarted = true
         isitplayersturn = true
-        hit.addEventListener("click", () => {
-            if (isitplayersturn) {
-                isplayerhitting = true
-                yhand.innerText = `${yhand1} | ${yhand2} | ${yhand3}`
-                dhand.innerText = `${dhand1} | ${dhand2}`
-                isitplayersturn = false
-                setTimeout(() => {
-                    dai(dhand1, dhand2, dhand3)
-                    var psum = 21 - (yhand1 + yhand2) || (yhand1 + yhand2) - 21
-                    var dsum = 21 - (dhand1 + dhand2) || (dhand1 + dhand2) - 21
-
-                    if (psum < dsum) {
-                        stats.coins += bidamt * 1.2
-                        setTimeout(() => {
-                            alert("you won, click restart")
-                        })
-                    } else {
-                        setTimeout(() => {
-                            alert("you lost, click restart")
-                        }, 1000)
-                    }
-                    alreadystarted = false
-                    isitplayersturn = false
-                    updatetext()
-                    console.log(psum, dsum)
-                }, 2000)
-            }
-        })
-
-        stand.addEventListener("click", () => {
-            if (isitplayersturn) {
-                isplayerstanding = true
-                dhand.innerText = `${dhand1} | ${dhand2}`
-                isitplayersturn = false
-                setTimeout(() => {
-                    dai(dhand1, dhand2, dhand3)
-                    var psum = 21 - (yhand1 + yhand2) || (yhand1 + yhand2) - 21
-                    var dsum = 21 - (dhand1 + dhand2) || (dhand1 + dhand2) - 21
-
-                    if (psum < dsum) {
-                        stats.coins += bidamt * 1.2
-                        setTimeout(() => {
-                            alert("you won, click restart")
-                        })
-                    } else {
-                        setTimeout(() => {
-                            alert("you lost, click restart")
-                        }, 1000)
-                    }
-                    alreadystarted = false
-                    isitplayersturn = false
-                    updatetext()
-                    console.log(psum, dsum)
-                }, 2000)
-            }
-        })
-
-        restart.addEventListener("click", () => {
-            if (!alreadystarted && !isbidding) {
-                location.reload()
-            }
-        });
 
     } else {
-        alert("someting went wong")
+        alert("someting went wong: please bid first")
+    }
+});
+
+hit.addEventListener("click", () => {
+    if (isitplayersturn && alreadystarted) {
+        yhand.innerText = `${yhand1} | ${yhand2} | ${yhand3}`
+        dhand.innerText = `${dhand1} | ${dhand2}`
+        setTimeout(async () => {
+            tdai(dhand1, dhand2, dhand3)
+            await sleep(3000)
+            var psum = Math.abs(21 - (yhand1 + yhand2 + yhand3))
+            var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
+            console.log(psum, dsum)
+            if (psum < dsum) {
+                var winamt = bidamt * 2
+                stats.coins += winamt
+                alert(`you won: ${abbreviate(roundn(winamt))}`)
+            } else if (psum == dsum) {
+                stats.coins += bidamt
+                alert(`a tie you get back your bid amount`)
+            } else if (psum > dsum) {
+                stats.coins -= bidamt
+            }
+            dhand1 = 0
+            dhand2 = 0
+            dhand3 = 0
+            yhand1 = 0
+            yhand2 = 0
+            yhand3 = 0
+            alreadystarted = false
+            isitplayersturn = false
+            canbid = true
+            bidamt = 0
+            updatetext()
+            dhand.innerText = `0 | 0`
+            yhand.innerText = `0 | 0`
+        }, 2000)
+    }
+});
+
+stand.addEventListener("click", () => {
+    if (isitplayersturn && alreadystarted) {
+        dhand.innerText = `${dhand1} | ${dhand2}`
+        setTimeout(async () => {
+            tdai(dhand1, dhand2, dhand3)
+            await sleep(3000)
+            var psum = Math.abs(21 - (yhand1 + yhand2))
+            var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
+            console.log(psum, dsum)
+            if (psum < dsum) {
+                var winamt = bidamt * 2
+                stats.coins += winamt
+                alert(`you won: ${abbreviate(roundn(winamt))}`)
+            } else if (psum == dsum) {
+                stats.coins += bidamt
+                alert(`a tie you get back your bid amount`)
+            } else if (psum > dsum) {
+                stats.coins -= bidamt
+            }
+            dhand1 = 0
+            dhand2 = 0
+            dhand3 = 0
+            yhand1 = 0
+            yhand2 = 0
+            yhand3 = 0
+            alreadystarted = false
+            isitplayersturn = false
+            canbid = true
+            bidamt = 0
+            updatetext()
+            dhand.innerText = `0 | 0`
+            yhand.innerText = `0 | 0`
+        }, 2000)
     }
 });
