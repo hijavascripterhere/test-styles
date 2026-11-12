@@ -224,8 +224,8 @@ stand.addEventListener("click", async () => {
             var dsum = 21 - dai(dhand1, dhand2, dhand3)
             console.log(psum, dsum)
             if (psum && dsum < 0) {
-                Math.abs(psum)
-                Math.abs(dsum)
+                psum = Math.abs(psum)
+                dsum = Math.abs(dsum)
                 if (psum > dsum) {
                     stats.coins -= bidamt
                     await sleep(500)
