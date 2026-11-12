@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>88bitter</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./images/dollar.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navplaque">
+            <div class="nav-button" id="navclicker">
+                <p>CLICKER</p>
+            </div>
+            <div class="nav-button" id="navupgrades">
+                <p>UPGRADES</p>
+            </div>
+            <div class="nav-button" id="navtutorial">
+                <p>TUTORIAL</p>
+            </div>
+            <div class="nav-button" id="navupdatelog">
+                <p>UPDATE LOG</p>
+            </div>
+            <div class="nav-button" id="navgamble">
+                <p>BLACK JACK</p>
+            </div>
+            <div class="menucontainer">
+                <div class="nav-button" id="navmisc">
+                    <p>MISC</p>
+                </div>
+
+                <div class="menu" id="menu">
+                    <p style="margin: 10px;" id="registeruser">register user</p>
+                    <p style="margin: 10px;" id="navleaderboard">leaderboard</p>
+                </div>
+            </div>
+            <div class="nav-button" id="logout-button" onclick="toggleMenu()">
+                <p>LOG-OUT</p>
+            </div>
+            <!--
+        <div class="nav-button">
+            <p>REGISTER</p>
+        </div>
+        <div class="nav-button">
+            <p>CRATES (coming soon)</p>
+        </div>
+        -->
+        </div>
+    </div>
+    <div class="containerui">
+        <div class="clicker" id="button">
+            <p id="coins">0</p>
+        </div>
+        <div class="tutorialtab" id="tutorialtab">
+            <h1 style="margin: 10px;">how to play 88bitter</h1>
+            <ul style="margin: 10px;">
+                <li>in tab {clicker} you click the black space</li>
+                <img src="./images/Screenshot From 2026-11-06 15-45-43.png" alt="clicker"
+                    style="width: 20rem; height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
+                <br>
+                <li>on the bottom of your screen youll see your stats your current coins, coins per click, upgrade
+                    tokens per click, tokens and user and coins per second</li>
+                <img src="./images/Screenshot From 2026-11-06 15-48-19.png" alt="clicker" style=" width: 30rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
+                <br>
+                <li>to purchase a upgrade token youll go to the tab {upgrades} at the bottom theres a button that says
+                    "upgrade tokens"</li>
+                <img src="./images/Screenshot From 2026-11-06 15-54-04.png" alt="clicker" style=" width: 20rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
+                <br>
+                <li>with the upgrade tokens you can purchase card tokens by pressing the + buttom</li>
+                <img src="./images/Screenshot From 2026-11-06 15-55-36.png" alt="clicker" style=" width: 20rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
+                <br>
+                <li>with those card tokens you can purchase upgrades each upgrade requires a certain amount of card
+                    tokens</li>
+                <img src="./images/Screenshot From 2026-11-06 15-57-53.png" alt="clicker" style=" width: 20rem;
+    height: auto; border: 1px solid white; box-shadow: 0px 0px 5px white; margin: 10px;">
+            </ul>
+        </div>
+        <div class="updatelogtab" id="updatelogtab">
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.7 date: 10/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- new game name 88bitter</li>
+                <br>
+                <li>- fiexd tons of black jack bugs</li>
+            </ul>
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.6 date: 10/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- new ui</li>
+                <br>
+                <li>- added gambling</li>
+            </ul>
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.5 date: 9/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- new font</li>
+                <br>
+                <li>- fixed a few things</li>
+            </ul>
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.4 date: 9/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- added new upgrades in { upgrades } tab</li>
+            </ul>
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.3 date: 7/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- added usernames (under misc)</li>
+                <br>
+                <li>- added global leaderboard (under misc)</li>
+            </ul>
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.2 date: 7/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- added password reset</li>
+            </ul>
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.1 date: 7/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- not a major update but made coins per click scale off of clicker card tokens formula:
+                    coinsperclick * ((clickertoken / 10) + 1)</li>
+                <br>
+                <li>- updated update log structure to now display older major updates!</li>
+            </ul>
+            <h1 style="margin: 10px;" class="updateh1">update v1.0.0 date: 6/11/2026</h1>
+            <ul style="margin: 10px;">
+                <li>- first ever full release!</li>
+                <br>
+                <li>- persistant data saving works cross device now</li>
+            </ul>
+        </div>
+        <div class="upgradetab" id="UPGRADES">
+            <h1>List of UPGRADES</h1>
+            <div class="cardlist">
+                <div class="upgrade1">
+                    <div class="cardtitle">
+                        <p id="cpstok">clicker - 0</p>
+                        <div class="addimg" data-tooltip="purchase upgrade tokens with coins" id="cpsatok">
+                            <img src="./images/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
+                                style="margin: 0; display: block;">
+                        </div>
+                    </div>
+                    <div class="upgrades">
+                        <div id="cpsup1" data-tooltip="+0.3 Coins per click req: clicker - 1" class="clickup">
+                            <p>coins per click</p>
+                        </div>
+                        <div id="cpsup2" data-tooltip="x1.5 Coins per click req: clicker - 4" class="clickup">
+                            <p>multiply clicks</p>
+                        </div>
+                        <div id="cpsup3" data-tooltip="+0.02 UT per click req: clicker - 10" class="clickup">
+                            <p>UT per click</p>
+                        </div>
+                        <div id="cpsup4" data-tooltip="+0.5 Coins per click req: clicker - 20" class="clickup">
+                            <p>more clicks</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="upgrade2">
+                    <div class="cardtitle">
+                        <p id="cbstok">autoclicker - 0</p>
+                        <div class="addimg" data-tooltip="purchase upgrade tokens with coins" id="cbsatok">
+                            <img src="./images/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="add"
+                                style="margin: 0; display: block;">
+                        </div>
+                    </div>
+                    <div class="upgrades">
+                        <div id="cbsup1"
+                            data-tooltip="unlocks auto coin clicker, coins per click: 1 req: autoclicker - 10"
+                            class="clickup">
+                            <p>Automatic Clicker</p>
+                        </div>
+                        <div id="cbsup2" data-tooltip="+0.01 UT per auto click req: autoclicker - 30" class="clickup">
+                            <p>Automatic UT-Clicker</p>
+                        </div>
+                        <div id="cbsup3" data-tooltip="+2 coins per click req: 35" class="clickup">
+                            <p>More Clicks</p>
+                        </div>
+                        <div id="cbsup4" data-tooltip="+3X coins per click req: 45" class="clickup">
+                            <p>Multiply Clicks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttonline">
+                <div class="tokens" data-tooltip="used to unlock upgrades" id="ptokens">
+                    <p>UT cost: ?$</p>
+                </div>
+            </div>
+        </div>
+        <div id="auth-overlay">
+            <div id="auth-container">
+                <h2>Account</h2>
+
+                <div id="login-form" style="margin: 10px;">
+                    <h3>Login</h3>
+
+                    <input id="login-email" type="email" placeholder="Email">
+
+                    <input id="login-password" type="password" placeholder="Password">
+                    <div class="row">
+                        <button id="login-button">Login</button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="register-form" style="margin: 10px;">
+                    <h3>Create account</h3>
+
+                    <input id="register-email" type="email" placeholder="Email">
+
+                    <input id="register-password" type="password" placeholder="Password">
+
+                    <div class="row" style="grid-template-columns: auto;">
+                        <button id="register-button">Register</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <button id="forgotPassword">Forgot password?</button>
+                </div>
+
+                <p id="auth-message"></p>
+            </div>
+            <div id="account-container" hidden>
+                <p>Logged in as: <span id="account-email"></span></p>
+                <button id="logout-button">Logout</button>
+            </div>
+        </div>
+        <div class="leaderboardtab" id="leaderboardtab">
+            <div id="leaderboard">
+
+                <h1>Leaderboard</h1>
+
+                <div class="btn-container">
+                    <div class="nav-button" data-leaderboard="coins">Coins</div>
+                    <div class="nav-button" data-leaderboard="UT">Upgrade tokens</div>
+                    <div class="nav-button" data-leaderboard="coinsperclick">Coins per click</div>
+                    <div class="nav-button" data-leaderboard="autoclicker">auto clicker: coins per click</div>
+                    <div class="nav-button" id="leaderboard-refresh">refresh</div>
+                </div>
+
+                <h2 id="currentcategory"></h2>
+                <ol id="leaderboard-list" style="font-size: x-large;"></ol>
+
+                <p id="leaderboard-message"></p>
+
+            </div>
+        </div>
+        <div class="gambletab" id="gambletab">
+            <div class="bidoverlay" id="bidoverlay">
+                <div class="bidcontainer">
+                    <div id="bidamount">
+                        <p>0</p>
+                    </div>
+                    <div class="btnrow">
+                        <div class="bidperc" data-percentage="0.1">
+                            <p>10%</p>
+                        </div>
+                        <div class="bidperc" data-percentage="0.25">
+                            <p>25%</p>
+                        </div>
+                        <div class="bidperc" data-percentage="0.50">
+                            <p>50%</p>
+                        </div>
+                        <div class="bidperc" data-percentage="1">
+                            <p>100%</p>
+                        </div>
+                    </div>
+                    <div class="bidbtn" id="bidbtn">
+                        <p>confirm bid</p>
+                    </div>
+                    <div class="close-btn" id="closebtn">
+                        <p>X</p>
+                    </div>
+                </div>
+            </div>
+            <h1>BLACK JACK</h1>
+            <div class="gamecontainer">
+                <div class="contain">
+                    <div class="status">
+                        <div class="bets" style="left: 0;" id="Balance">
+                            <p>Balance:<br>100</p>
+                        </div>
+                        <div class="bets" style="right: 0;" id="bet">
+                            <p>Bet:<br>100</p>
+                        </div>
+                    </div>
+                    <div class="mainnumbers">
+                        <div class="hands">
+                            <p class="hand" id="dhandtot">dealers hand</p>
+                            <p style="font-size: 4rem;" id="dhand">12 | 6</p>
+
+                            <p class="hand" id="yhandtot">your hand</p>
+                            <p style="font-size: 4rem;" id="yhand">12 | 6</p>
+                        </div>
+                        <div class="btn-row">
+                            <div class="game-btn" id="hit">
+                                <p>hit</p>
+                            </div>
+                            <div class="game-btn" id="stand">
+                                <p>stand</p>
+                            </div>
+                            <!--
+                            <div class="game-btn" id="dd">
+                                <p>double down</p>
+                            </div>
+                            <div class="game-btn" id="split">
+                                <p>split</p>
+                            </div>
+                            -->
+                            <div class="game-btn" id="bid">
+                                <p>bid</p>
+                            </div>
+                            <div class="game-btn" id="start">
+                                <p>start</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="infobar">
+        <p id="username">User: ?</p>
+        <p style="font-size: smaller;" id="cps">coins per second: 0</p>
+        <p style="font-size: smaller;" id="coinsperclick">coins per click: 0</p>
+        <p style="font-size: smaller;" id="tokenperclick">UT per click: 0</p>
+        <p style="font-size: smaller;" id="currentcoins">coins: 0</p>
+        <p style="font-size: smaller;" id="tokens">UT: 0</p>
+    </div>
+
+    <p style="color: gray; position: fixed; bottom: 0; right: 0; z-index: 666;" id="versiontext">current version: ?<br>
+        your current version: ?</p>
+    <div id="tooltip"></div>
+    <script src="./js/nav.js"></script>
+    <script src="./js/tooltip.js"></script>
+    <script type="module" src="./js/game.js"></script>
+    <script type="module" src="./js/blackjack.js"></script>
+</body>
+
+</html>
+
+<!--test-->
