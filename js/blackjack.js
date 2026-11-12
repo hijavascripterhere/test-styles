@@ -47,6 +47,7 @@ function sleep(ms) {
 }
 
 var tempbidamt = 0
+var bidmultiplier = 0
 
 bidamount.innerText = tempbidamt
 
@@ -72,6 +73,7 @@ document.querySelectorAll("[data-percentage]").forEach(Element => {
     Element.addEventListener("click", () => {
         if (stats.coins > 0) {
             tempbidamt = stats.coins * Number(Element.dataset.percentage);
+            bidmultiplier = 1 + Number(Element.dataset.percentage)
             bidamount.innerText = abbreviate(roundn(tempbidamt))
         }
     });
@@ -151,18 +153,33 @@ hit.addEventListener("click", async () => {
             tdai(dhand1, dhand2, dhand3)
             dhandtot.innerHTML = `dealers hand: total amount: ${dai(dhand1, dhand2, dhand3)}`
             await sleep(3000)
-            var psum = Math.abs(21 - (yhand1 + yhand2 + yhand3))
-            var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
+            var psum = 21 - (yhand1 + yhand2 + yhand3)
+            var dsum = 21 - dai(dhand1, dhand2, dhand3)
             console.log(psum, dsum)
-            if (psum < dsum) {
-                var winamt = bidamt
+            if (psum && dsum < 0) {
+                Math.abs(psum)
+                Math.abs(dsum)
+                if (psum > dsum) {
+                    stats.coins -= bidamt
+                    await sleep(500)
+                    alert(`you lost: ${abbreviate(roundn(bidamt))}`)
+                } else if (psum > dsum) {
+                    var winamt = bidamt * bidmultiplier
+                    stats.coins += winamt
+                    await sleep(500)
+                    alert(`you won: ${abbreviate(roundn(winamt))}`)
+                }
+            } else if (dsum < 0 || (psum >= 0 && psum < dsum)) {
+                var winamt = bidamt * bidmultiplier
                 stats.coins += winamt
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
+
             } else if (psum == dsum) {
                 await sleep(500)
                 alert(`a tie you get back your bid amount`)
-            } else if (psum > dsum) {
+
+            } else {
                 stats.coins -= bidamt
                 await sleep(500)
                 alert(`you lost: ${abbreviate(roundn(bidamt))}`)
@@ -207,7 +224,7 @@ stand.addEventListener("click", async () => {
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
             if (psum < dsum) {
-                var winamt = bidamt
+                var winamt = bidamt * bidmultiplier
                 stats.coins += winamt
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
