@@ -63,13 +63,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    height: 3rem;
+    height: min-content;
     flex-direction: row;
     transition: all 0.4s;
     box-shadow: inset 0px -3px 0px rgb(42, 42, 42);
     background-color: rgb(62, 62, 62);
     width: 100%;
     z-index: 10;
+    padding: 5px 0;
+}
+
+.navplaque {
+    display: flex;
+    box-shadow: inset 2px 0px 0px rgb(42, 42, 42), inset -2px 0px 0px rgb(42, 42, 42), inset 0px -3px 0px rgb(42, 42, 42), inset 0px 3px 0px gray;
+    background-color: rgb(62, 62, 62);
+    padding: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .clicker {
