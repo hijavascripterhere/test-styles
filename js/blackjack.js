@@ -223,16 +223,30 @@ stand.addEventListener("click", async () => {
             var psum = Math.abs(21 - (yhand1 + yhand2))
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
-            if (psum < dsum) {
+            if (psum && dsum < 0) {
+                Math.abs(psum)
+                Math.abs(dsum)
+                if (psum > dsum) {
+                    stats.coins -= bidamt
+                    await sleep(500)
+                    alert(`you lost: ${abbreviate(roundn(bidamt))}`)
+                } else if (psum > dsum) {
+                    var winamt = bidamt * bidmultiplier
+                    stats.coins += winamt
+                    await sleep(500)
+                    alert(`you won: ${abbreviate(roundn(winamt))}`)
+                }
+            } else if (dsum < 0 || (psum >= 0 && psum < dsum)) {
                 var winamt = bidamt * bidmultiplier
                 stats.coins += winamt
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
+
             } else if (psum == dsum) {
-                stats.coins += bidamt
                 await sleep(500)
                 alert(`a tie you get back your bid amount`)
-            } else if (psum > dsum) {
+
+            } else {
                 stats.coins -= bidamt
                 await sleep(500)
                 alert(`you lost: ${abbreviate(roundn(bidamt))}`)
