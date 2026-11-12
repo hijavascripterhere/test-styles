@@ -220,8 +220,8 @@ stand.addEventListener("click", async () => {
             dhandtot.innerHTML = `dealers hand: total amount: ${dai(dhand1, dhand2, dhand3)}`
             yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2}`
             await sleep(3000)
-            var psum = Math.abs(21 - (yhand1 + yhand2))
-            var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
+            var psum = 21 - (yhand1 + yhand2)
+            var dsum = 21 - dai(dhand1, dhand2, dhand3)
             console.log(psum, dsum)
             if (psum && dsum < 0) {
                 Math.abs(psum)
