@@ -152,7 +152,6 @@ hit.addEventListener("click", async () => {
         setTimeout(async () => {
             tdai(dhand1, dhand2, dhand3)
             dhandtot.innerHTML = `dealers hand: total amount: ${dai(dhand1, dhand2, dhand3)}`
-            await sleep(3000)
             var psum = Math.abs(21 - (yhand1 + yhand2 + yhand3))
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
@@ -169,6 +168,7 @@ hit.addEventListener("click", async () => {
                 await sleep(500)
                 alert(`you lost: ${abbreviate(roundn(bidamt))}`)
             }
+            await sleep(3000)
             dhand1 = 0
             dhand2 = 0
             dhand3 = 0
@@ -204,7 +204,6 @@ stand.addEventListener("click", async () => {
             tdai(dhand1, dhand2, dhand3)
             dhandtot.innerHTML = `dealers hand: total amount: ${dai(dhand1, dhand2, dhand3)}`
             yhandtot.innerHTML = `your hand: total amount: ${yhand1 + yhand2}`
-            await sleep(3000)
             var psum = Math.abs(21 - (yhand1 + yhand2))
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
@@ -222,6 +221,7 @@ stand.addEventListener("click", async () => {
                 await sleep(500)
                 alert(`you lost: ${abbreviate(roundn(bidamt))}`)
             }
+            await sleep(3000)
             dhand1 = 0
             dhand2 = 0
             dhand3 = 0
