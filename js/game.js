@@ -32,7 +32,7 @@ document.addEventListener("contextmenu", function (e) {
     e.preventDefault()
 })
 
-const CURRENT_VERSION = "v1.0.7";
+const CURRENT_VERSION = "v1.0.8";
 
 export let stats = {
     coins: 0,
