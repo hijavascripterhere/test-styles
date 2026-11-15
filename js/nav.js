@@ -1,6 +1,6 @@
 var navclicker = document.getElementById("navclicker")
 var navupgrade = document.getElementById("navupgrades")
-var navtutorial = document.getElementById("navtutorial")
+//var navtutorial = document.getElementById("navtutorial")
 var navupdatelogtab = document.getElementById("navupdatelog")
 var navmisc = document.getElementById("navmisc")
 const navleaderboard = document.getElementById("navleaderboard")
@@ -8,7 +8,7 @@ const navgamble = document.getElementById("navgamble")
 
 var clickertab = document.getElementById("button")
 var upgradetab = document.getElementById("UPGRADES")
-var tutorialtab = document.getElementById("tutorialtab")
+//var tutorialtab = document.getElementById("tutorialtab")
 var updatelogtab = document.getElementById("updatelogtab")
 
 const leaderboardtab = document.getElementById("leaderboardtab")
@@ -34,6 +34,7 @@ navupgrade.onclick = function () {
     gambletab.style.display = "none";
 }
 
+/*
 navtutorial.onclick = function () {
     clickertab.style.display = "none";
     upgradetab.style.display = "none";
@@ -42,6 +43,7 @@ navtutorial.onclick = function () {
     leaderboardtab.style.display = "none";
     gambletab.style.display = "none";
 }
+*/
 
 navupdatelogtab.onclick = function () {
     clickertab.style.display = "none";
