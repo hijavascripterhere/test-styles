@@ -54,6 +54,8 @@ const firebaseConfig = {
 */
 
 // refresh the page when the user document changes
+const userRef = doc(db, "users", auth.currentUser.uid);
+
 onSnapshot(userRef, (snapshot) => {
     location.reload();
 });
