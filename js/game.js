@@ -14,7 +14,7 @@ import {
     query,
     orderBy,
     limit,
-    getDocs
+    onSnapshot
 } from "./firebase.js";
 
 import {
@@ -124,6 +124,7 @@ const leaderboardList = document.getElementById("leaderboard-list");
 const leaderboardMessage = document.getElementById("leaderboard-message");
 
 let leaderboardCategory = "coins";
+let unsubscribeLeaderboard = null;
 
 export function roundn(num) {
     return Math.round(num * 100) / 100;
@@ -145,10 +146,11 @@ export function abbreviate(num) {
     return num;
 }
 
-async function loadLeaderboard() {
+function loadLeaderboard() {
 
     if (!currentUser) return;
 
+    unsubscribeLeaderboard?.();
     leaderboardMessage.textContent = "Loading...";
     leaderboardList.replaceChildren();
 
@@ -160,34 +162,33 @@ async function loadLeaderboard() {
             limit(10)
         );
 
-        const snapshot = await getDocs(leaderboardQuery);
+        unsubscribeLeaderboard = onSnapshot(leaderboardQuery, (snapshot) => {
+            leaderboardList.replaceChildren();
 
-        if (snapshot.empty) {
-            leaderboardMessage.textContent = "No players yet!";
-            return;
-        }
+            if (snapshot.empty) {
+                leaderboardMessage.textContent = "No players yet!";
+                return;
+            }
 
-        let index = 0;
+            let index = 0;
 
-        snapshot.forEach((playerDoc) => {
+            snapshot.forEach((playerDoc) => {
+                const player = playerDoc.data();
+                const entry = document.createElement("li");
+                const value = player[leaderboardCategory] ?? 0;
 
-            const player = playerDoc.data();
+                document.getElementById("currentcategory").innerHTML = `- ${leaderboardCategory} -`;
+                entry.textContent =
+                    `${index + 1}. ${player.username || "Player"} - ${abbreviate(roundn(value))}`;
+                leaderboardList.appendChild(entry);
+                index++;
+            });
 
-            const entry = document.createElement("li");
-
-            const value = player[leaderboardCategory] ?? 0;
-            document.getElementById("currentcategory").innerHTML = `- ${leaderboardCategory} -`;
-
-            entry.textContent =
-                `${index + 1}. ${player.username || "Player"} - ${abbreviate(roundn(value))}`;
-
-            leaderboardList.appendChild(entry);
-
-            index++;
-
+            leaderboardMessage.textContent = "";
+        }, (error) => {
+            console.error("Leaderboard error:", error);
+            leaderboardMessage.textContent = "Couldn't load leaderboard.";
         });
-
-        leaderboardMessage.textContent = "";
 
     } catch (error) {
 
@@ -212,6 +213,7 @@ document.querySelectorAll("[data-leaderboard]").forEach(div => {
 let currentUser = null;
 let gameReady = false;
 let saveDirty = false;
+let unsubscribePlayer = null;
 
 function savegame() {
     saveDirty = true;
@@ -271,23 +273,12 @@ async function loadGame(user) {
         const saveRef = doc(db, "players", user.uid);
         const save = await getDoc(saveRef);
 
+        if (currentUser?.uid !== user.uid) return;
+
         if (save.exists()) {
             const data = save.data();
 
-            stats = {
-                ...stats,
-                ...data.stats
-            };
-
-            for (let upgrade in upgrades) {
-                if (data.upgrades?.[upgrade]) {
-                    upgrades[upgrade].cost =
-                        data.upgrades[upgrade].cost;
-
-                    upgrades[upgrade].available =
-                        data.upgrades[upgrade].available;
-                }
-            }
+            applyGameSave(data);
 
             console.log("Save loaded!");
         } else {
@@ -301,6 +292,19 @@ async function loadGame(user) {
         // Create the first save for a new player
         await uploadSave();
 
+        if (currentUser?.uid !== user.uid) return;
+
+        unsubscribePlayer?.();
+        unsubscribePlayer = onSnapshot(saveRef, (snapshot) => {
+            if (currentUser?.uid !== user.uid || !snapshot.exists()) return;
+
+            applyGameSave(snapshot.data());
+            renderGameText();
+        }, (error) => {
+            console.error("Live save sync failed:", error);
+            authMessage.textContent = "Couldn't sync your save. Please try again.";
+        });
+
     } catch (error) {
         gameReady = false;
         console.error("Couldn't load save:", error);
@@ -308,9 +312,29 @@ async function loadGame(user) {
     }
 }
 
+function applyGameSave(data) {
+    stats = {
+        ...stats,
+        ...data.stats
+    };
+
+    for (let upgrade in upgrades) {
+        if (data.upgrades?.[upgrade]) {
+            upgrades[upgrade].cost = data.upgrades[upgrade].cost;
+            upgrades[upgrade].available = data.upgrades[upgrade].available;
+        }
+    }
+}
+
 
 /* update text function */
 export function updatetext() {
+    if (!gameReady) return;
+    renderGameText();
+    savegame();
+}
+
+function renderGameText() {
     if (!gameReady) return;
     for (let upgrade in upgrades) {
         if (upgrades[upgrade].available) {
@@ -331,7 +355,6 @@ export function updatetext() {
     user.innerHTML = `User: ${stats.username}`
     balance.innerHTML = `Balance:<br>${abbreviate(roundn(stats.coins))}`
     bet.innerHTML = `bet:<br>${abbreviate(roundn(bidamt))}`
-    savegame()
 }
 
 
@@ -567,6 +590,13 @@ document.getElementById("forgotPassword").addEventListener("click", async () => 
 });
 
 onAuthStateChanged(auth, async function (user) {
+    if (!user) {
+        unsubscribePlayer?.();
+        unsubscribePlayer = null;
+        unsubscribeLeaderboard?.();
+        unsubscribeLeaderboard = null;
+    }
+
     currentUser = user;
     gameReady = false;
 

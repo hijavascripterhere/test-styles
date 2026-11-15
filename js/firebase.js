@@ -11,8 +11,7 @@ import {
     sendEmailVerification,
     sendPasswordResetEmail,
     signOut,
-    onAuthStateChanged,
-    onSnapshot
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
 // Firestore Database
@@ -26,7 +25,8 @@ import {
     query,
     orderBy,
     limit,
-    getDocs
+    getDocs,
+    onSnapshot
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 // Your Firebase configuration
@@ -52,13 +52,6 @@ const firebaseConfig = {
     measurementId: "G-D6HQT10RH3"
 };
 */
-
-// refresh the page when the user document changes
-const userRef = doc(db, "users", auth.currentUser.uid);
-
-onSnapshot(userRef, (snapshot) => {
-    location.reload();
-});
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -105,5 +98,6 @@ export {
     query,
     orderBy,
     limit,
-    getDocs
+    getDocs,
+    onSnapshot
 };
