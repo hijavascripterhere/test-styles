@@ -131,7 +131,7 @@ export function roundn(num) {
 }
 
 export function abbreviate(num) {
-    if (num >= 1e33) return (num / 1e30).toFixed(1) + "D";
+    if (num >= 1e33) return (num / 1e33).toFixed(1) + "D";
     if (num >= 1e30) return (num / 1e30).toFixed(1) + "Nn";
     if (num >= 1e27) return (num / 1e27).toFixed(1) + "Sp";
     if (num >= 1e24) return (num / 1e24).toFixed(1) + "Sp";
