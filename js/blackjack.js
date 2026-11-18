@@ -47,7 +47,6 @@ function sleep(ms) {
 }
 
 var tempbidamt = 0
-var bidmultiplier = 0
 
 bidamount.innerText = tempbidamt
 
@@ -73,7 +72,6 @@ document.querySelectorAll("[data-percentage]").forEach(Element => {
     Element.addEventListener("click", () => {
         if (stats.coins > 0) {
             tempbidamt = stats.coins * Number(Element.dataset.percentage);
-            bidmultiplier = 1 + Number(Element.dataset.percentage)
             bidamount.innerText = abbreviate(roundn(tempbidamt))
         }
     });
@@ -156,7 +154,7 @@ hit.addEventListener("click", async () => {
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
             if (psum < dsum) {
-                var winamt = bidamt * bidmultiplier
+                var winamt = bidamt
                 stats.coins += winamt
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
@@ -208,7 +206,7 @@ stand.addEventListener("click", async () => {
             var dsum = Math.abs(21 - dai(dhand1, dhand2, dhand3))
             console.log(psum, dsum)
             if (psum < dsum) {
-                var winamt = bidamt * bidmultiplier
+                var winamt = bidamt
                 stats.coins += winamt
                 await sleep(500)
                 alert(`you won: ${abbreviate(roundn(winamt))}`)
